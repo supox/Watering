@@ -11,14 +11,42 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120805172054) do
+ActiveRecord::Schema.define(:version => 20120806203402) do
+
+  create_table "sprinklers", :force => true do |t|
+    t.string   "identifier"
+    t.string   "machine_version"
+    t.string   "mac_address"
+    t.integer  "refresh_rate_seconds"
+    t.string   "ios"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "sprinklers", ["mac_address"], :name => "index_sprinklers_on_mac_address"
+
+  create_table "sprinklers_users", :force => true do |t|
+    t.integer "sprinkler_id"
+    t.integer "user_id"
+  end
+
+  add_index "sprinklers_users", ["sprinkler_id", "user_id"], :name => "index_sprinklers_users_on_sprinkler_id_and_user_id", :unique => true
+  add_index "sprinklers_users", ["sprinkler_id"], :name => "index_sprinklers_users_on_sprinkler_id"
+  add_index "sprinklers_users", ["user_id"], :name => "index_sprinklers_users_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "remember_token"
+    t.boolean  "admin",           :default => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

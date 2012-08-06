@@ -102,7 +102,7 @@ he:
     messages:
       accepted: חייב באישור
       blank: לא יכול להיות ריק
-      confirmation: לא תואם לאישורו
+      confirmation: לא תואמת לאישור
       empty: לא יכול להיות ריק
       equal_to: חייב להיות שווה ל- %{count}
       even: חייב להיות זוגי
@@ -197,8 +197,23 @@ he:
     errors:
       <<: *errors
   activerecord:
+    attributes:
+      user:
+        password: "הקוד"
+        password_digest: "הקוד"
+        password_confirmation: "וידוא סיסמא"
+        name: "שם"
+        email: "דואר אלקטרוני"
     errors:
       <<: *errors
+
+  css:
+    right: left
+    left: right
+    
+  txt:
+    page:
+      properties: dir=rtl
 
   # Application specific attributes
   name: שם
@@ -207,9 +222,16 @@ he:
   confirmation: וידוא סיסמא
   create_user: צור משתמש
   new_user : משתמש חדש
-  
+  sign_in : התחבר
+  sign_out : התנתק
+  invalid_email_password_combination : שם משתמש או סיסמא לא נכונים
   watering_project: השקייה
   home: בית
   about: אודות
   signin: כניסה 
   contact: צור קשר
+  watering_team: מערכות השקייה בע"מ
+  sprinklers: בקרים
+  
+  form_contains_error: "הטופס מכיל שגיאות"
+  

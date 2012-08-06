@@ -1,0 +1,15 @@
+<% provide(:title, @user.name) %>
+<h1> <%= @user.name %> </h1>
+
+<% if @user.sprinklers.any? %>
+<h2><%= t(:sprinklers) %></h2>
+<ol>
+	<%= render partial: 'sprinkler', collection: @user.sprinklers %>
+</ol>
+
+<% end %>
+
+<% if current_user.admin? && !current_user?(user) %>
+| <%= link_to "delete", user, method: :delete,
+data: { confirm: "You sure?" } %>
+<% end %>

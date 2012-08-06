@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  identifier: MyString
+  machine_version: MyString
+  mac_address: MyString
+  refresh_rate_seconds: 1
+  ios: MyString
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  identifier: MyString
+  machine_version: MyString
+  mac_address: MyString
+  refresh_rate_seconds: 1
+  ios: MyString
+  latitude: 1.5
+  longitude: 1.5
