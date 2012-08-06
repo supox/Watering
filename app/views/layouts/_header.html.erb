@@ -1,12 +1,12 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "השקיה", root_path, id: "logo" %>
+      <%= link_to t(:watering_project), root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "בית",    root_path %></li>
-          <li><%= link_to "אודות",    about_path %></li>
-          <li><%= link_to "הכנס", '#' %></li>
+          <li><%= link_to t(:home),    root_path %></li>
+          <li><%= link_to t(:about),    about_path %></li>
+          <li><%= link_to t(:signin), new_user_path %></li>
         </ul>
       </nav>
     </div>
