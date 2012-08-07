@@ -11,14 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806203402) do
+ActiveRecord::Schema.define(:version => 20120807203334) do
+
+  create_table "output_valves", :force => true do |t|
+    t.string   "type"
+    t.integer  "port_index"
+    t.integer  "sprinkler_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "output_valves", ["sprinkler_id"], :name => "index_output_valves_on_sprinkler_id"
+
+  create_table "sensors", :force => true do |t|
+    t.string   "identifier"
+    t.integer  "port_index"
+    t.integer  "sprinkler_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "sensors", ["sprinkler_id"], :name => "index_sensors_on_sprinkler_id"
 
   create_table "sprinklers", :force => true do |t|
     t.string   "identifier"
     t.string   "machine_version"
     t.string   "mac_address"
     t.integer  "refresh_rate_seconds"
-    t.string   "ios"
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "created_at",           :null => false
@@ -48,5 +67,15 @@ ActiveRecord::Schema.define(:version => 20120806203402) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "valves", :force => true do |t|
+    t.string   "identifier"
+    t.integer  "port_index"
+    t.integer  "sprinkler_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "valves", ["sprinkler_id"], :name => "index_valves_on_sprinkler_id"
 
 end

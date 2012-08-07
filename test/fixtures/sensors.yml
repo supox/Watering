@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  identifier: MyString
+  port_index: 1
+  sprinkler_id: 1
+
+two:
+  identifier: MyString
+  port_index: 1
+  sprinkler_id: 1
