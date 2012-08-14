@@ -140,3 +140,29 @@ $grayMediumLight: #eaeaea;
   @extend .control-group;
   @extend .error;
  }
+
+.sprinklers {
+  ul {
+    list-style: none;
+    li {
+      margin-left: 10px;
+      .sensors {
+        ul {
+          list-style: none;
+          li {
+            margin-left: 10px;
+          }
+        }
+      }      
+    }
+  }  
+}
+
+.graph_div {
+  width: 700px;
+  height: 240px;
+}
+
+#time_selector {
+  margin:1em;
+}

@@ -9,7 +9,6 @@ he:
     - ו
     - ש
     abbr_month_names:
-    - 
     - יאנ
     - פבר
     - מרץ
@@ -204,6 +203,9 @@ he:
         password_confirmation: "וידוא סיסמא"
         name: "שם"
         email: "דואר אלקטרוני"
+      sensor_reading:
+        sensor_value: ערך הקריאה
+        read_time: זמן הקריאה
     errors:
       <<: *errors
 
@@ -231,7 +233,26 @@ he:
   signin: כניסה 
   contact: צור קשר
   watering_team: מערכות השקייה בע"מ
+  sprinkler: בקר
   sprinklers: בקרים
-  
+  valves: צינורות
+  sensors: חיישנים
   form_contains_error: "הטופס מכיל שגיאות"
-  
+  new_reading: "קריאה חדשה"
+  send: 'שלח'
+  sensor_value: קריאת החיישן
+  sensor_id: מזהה חיישן
+  reading_created: הקריאה נוצרה!
+  read_time: זמן הקריאה
+  could_not_create_reading: לא ניתן ליצור את הקריאה
+  only_numbers: חייב להיות מספרי
+  must_be_a_valid_date: חייב להיות תאריך חוקי
+  sensor_readings: קריאות
+  identifier: מזהה
+  port: חיבור
+  last_readings: קריאות אחרונות
+  reading_time: זמן הקריאה
+  reading: קריאה
+  daily: יומי
+  weekly: שבועי
+  monthly: חודשי

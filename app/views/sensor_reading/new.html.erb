@@ -1,0 +1,22 @@
+<!-- Just a debug, will be removed when we'll have a proper machines. -->
+<% provide(:title, t(:new_reading) ) %>
+<h1><%= t(:new_reading) %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@sensor_reading) do |f| %>
+      <%= f.hidden_field :sensor_id %>
+      <%= render 'shared/error_messages', object: f.object %>
+      
+      <%= f.label :sensor_value, t(:sensor_value) %>
+      <%= f.text_field :sensor_value, autofocus: true %>
+
+
+      <%= f.label :read_time, t(:read_time) %>
+	  <%= f.date_select(:read_time, :default => Date.today ) %>
+	  <%= f.time_select(:read_time, ignore_date: true ) %>
+
+      <%= f.submit t(:send), class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

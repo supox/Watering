@@ -1,0 +1,54 @@
+<% provide(:title, 'Schdule') %>
+<h1>Schedule</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@plan, url: url_for(action: 'create')) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      	<%= javascript_tag do %>
+      		function updateForm(val) {
+      			$("#repeat option").each(function(value){
+      				$("#"+this.value).hide();
+      			});
+      			$("#" + val).show();
+      		}
+      		$(document).ready(function() {
+      			$("#repeat option").select()
+			});
+      	<% end %>
+		<%= select_tag(:repeat, options_for_select([ [t(:daily), "Daily"], [t(:weekly),"Weekly"], [t(:monthly),"Monthly"] ], "Daily" ), onchange: 'updateForm(this.value);' )%>
+		<div id="Daily">
+		</div>
+		<div id="Weekly" style="display:none;">
+			<%= fields_for :weekly do |d| %>
+			<%= d.label t(:weekly) %>
+			<ul>
+				<%	day_names = I18n.t("date.day_names");
+					day_values = Date::ABBR_DAYNAMES;
+					day_names.each_with_index do |day,i| %>
+				<li>
+					<%= d.check_box day_values[i] %> <%= day %> 
+				</li>
+				<% end %>
+			</ul>
+			<% end %>
+		</div>
+		<div id="Monthly" style="display:none;">
+			<%= fields_for :monthly do |d| %>
+				<%= d.label t(:monthly) %>
+				<%= d.hidden_field :day_of_month %>
+				<div id="div_day_of_month"></div>
+
+				<%= javascript_tag do %>
+				    var beginDate = new Date();
+				    beginDate.setDate(1);
+				    var endDate = new Date();
+				    endDate.setDate(31);
+					$("#div_day_of_month").datepicker( {altField: "#monthly_day_of_month", altFormat: "d", minDate:beginDate , maxDate: endDate } );
+				<% end %>
+			<% end %>
+		</div>
+		<%= f.submit t(:send), class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

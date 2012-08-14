@@ -2,10 +2,10 @@
 <h1> <%= @user.name %> </h1>
 
 <% if @user.sprinklers.any? %>
-<h2><%= t(:sprinklers) %></h2>
-<ol>
-	<%= render partial: 'sprinkler', collection: @user.sprinklers %>
-</ol>
+<h3><%= t(:sprinklers) %></h3>
+<ul class="sprinklers">
+	<%= render partial: 'shared/sprinkler', collection: @user.sprinklers %>
+</ul>
 
 <% end %>
 

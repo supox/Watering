@@ -3,8 +3,16 @@ WateringProject::Application.routes.draw do
   match "/about", to: "static_pages#about"
   match "/contact", to: "static_pages#contact"
   
+  resources :sprinklers, except: [:create] do
+    resources :schedules, only: [:new, :create]
+  end
   resources :users, except: [:index]
   resources :sessions, only: [:new, :create, :destroy]
+    
+  # Sensor readings
+  match '/sensor_readings/:sensor_id' => 'sensor_reading#new'
+  match '/sensor_readings' => 'sensor_reading#create', via: :post
+  match '/sensor_readings/:sensor_id/graph' => 'sensor_reading#graph'  
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

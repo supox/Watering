@@ -9,6 +9,9 @@ gem 'bcrypt-ruby', '3.0.1'
 
 gem 'sqlite3'
 
+gem 'googlecharts' # Google graphs api
+gem 'ice_cube' # the easy date expansion library
+gem 'jquery-ui-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

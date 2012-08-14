@@ -4,4 +4,7 @@ class Sensor < ActiveRecord::Base
 
   validate :port_index, presence: true
   validate :identifier, presence: true
+  
+  has_many :sensor_readings, dependent: :destroy
+
 end

@@ -1,0 +1,19 @@
+<h3><%= t(:identifier) %> : <%= sensor.identifier %></h2>
+
+<p><%= t(:port) %> : <%= sensor.port_index %></p>
+<%
+	events_time = 3.days.ago	
+	if not sensor.sensor_readings.count(:conditions => ["read_time >= ?", events_time]).zero?
+%>
+	<h4><%= t(:last_readings)%> :</h4>
+	<table class="table table-condensed ReadingTable">
+		<tr><th><%= t :reading_time %></th><th><%= t :reading %></th></tr>
+		<%
+			readings = sensor.sensor_readings.all(limit:5, :conditions => ["read_time >= ?", events_time])
+			readings.each do |reading|
+		%>
+			
+		<tr><td><%= l reading.read_time, format: :short %></td><td><%= reading.sensor_value %></td></tr>
+		<%	end %>
+	</table>
+<% end %>

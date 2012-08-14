@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sensor_id: 1
+  sensor_value: 1
+
+two:
+  sensor_id: 1
+  sensor_value: 1

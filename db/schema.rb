@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807203334) do
+ActiveRecord::Schema.define(:version => 20120813194847) do
 
   create_table "output_valves", :force => true do |t|
     t.string   "type"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20120807203334) do
 
   add_index "output_valves", ["sprinkler_id"], :name => "index_output_valves_on_sprinkler_id"
 
+  create_table "sensor_readings", :force => true do |t|
+    t.integer  "sensor_id"
+    t.integer  "sensor_value"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.datetime "read_time"
+  end
+
+  add_index "sensor_readings", ["sensor_id"], :name => "index_sensor_readings_on_sensor_id"
+
   create_table "sensors", :force => true do |t|
     t.string   "identifier"
     t.integer  "port_index"
@@ -32,6 +42,14 @@ ActiveRecord::Schema.define(:version => 20120807203334) do
   end
 
   add_index "sensors", ["sprinkler_id"], :name => "index_sensors_on_sprinkler_id"
+
+  create_table "sprinkler_plans", :force => true do |t|
+    t.integer  "sprinkler_id"
+    t.text     "schedule"
+    t.datetime "start_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "sprinklers", :force => true do |t|
     t.string   "identifier"
