@@ -1528,3 +1528,15 @@ $.timepicker = new Timepicker(); // singleton instance
 $.timepicker.version = "1.0.1";
 
 })(jQuery);
+
+$.timepicker.regional['he'] = {
+	timeOnlyTitle: 'בחר זמן',
+	timeText: 'זמן',
+	hourText: 'שעה',
+	minuteText: 'דקה',
+	secondText: 'שנייה',
+	millisecText: 'מילישנייה',
+	currentText: 'עכשיו',
+	closeText: 'סגור',
+	ampm: false
+};

@@ -118,8 +118,9 @@ he:
       record_invalid: ! 'האימות נכשל: %{errors}'
       taken: כבר בשימוש
       too_long: יותר מדי ארוך (לא יותר מ- %{count} תוים)
-      too_short: יותר מדי קצר (לא יותר מ- %{count} תוים)
+      too_short: יותר מדי קצר (לא פחות מ- %{count} תוים)
       wrong_length: לא באורך הנכון (חייב להיות %{count} תוים)
+      invalid_type: לא חוקי
     template:
       body: ! 'אנא בדוק את השדות הבאים:'
       header:
@@ -182,12 +183,13 @@ he:
   support:
     array:
       last_word_connector: ! ', את '
-      two_words_connector: ! ' את '
+      two_words_connector: ! ' ו'
       words_connector: ! ', '
   time:
     am: am
     formats:
-      default: ! '%a %d %b %H:%M:%S %Z %Y'
+      # default: ! '%a %d %b %H:%M:%S %Z %Y'
+      default: "%d/%m/%Y %H:%M:%S"
       long: ! '%d ב%B, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
@@ -196,6 +198,9 @@ he:
     errors:
       <<: *errors
   activerecord:
+    models:
+      sensor_reading: קריאה
+      sprinkler_plan: תוכנית
     attributes:
       user:
         password: "הקוד"
@@ -206,10 +211,12 @@ he:
       sensor_reading:
         sensor_value: ערך הקריאה
         read_time: זמן הקריאה
+        sensor_reading: קריאה
       sprinkler_plan:
         title: השם
         start_date: זמן התחלה
         end_date: זמן סיום
+        schedule: התזמון
     errors:
       <<: *errors
 
@@ -221,6 +228,16 @@ he:
     page:
       properties: dir=rtl
 
+  formtastic:
+    post:
+      title: "כותרת"
+    actions:
+      create: "צור %{model}"
+      update: "שמור שינויים"
+      reset: "אפס טופס"
+      cancel: "ביטול"
+      submit: שלח
+      
   # Application specific attributes
   name: שם
   email: דואר אלקטרוני
@@ -257,9 +274,10 @@ he:
   last_readings: קריאות אחרונות
   reading_time: זמן הקריאה
   reading: קריאה
-  daily: יומי
-  weekly: שבועי
-  monthly: חודשי
+  no_repeat: ללא חזרה
+  daily_repeat: חזרה יומית
+  weekly_repeat: חזרה שבועית
+  monthly_repeat: חזרה חודשית
   next_plans: תוכניות השקייה
   new_plan: תוכנית חדשה
   watering: השקייה
@@ -269,8 +287,13 @@ he:
   plan_created: התוכנית נוצרה
   could_not_create_plan: לא ניתן ליצור תוכנית
   start_time: זמן התחלה
+  end_time: זמן סיום
   edit_user: עריכת משתמש
   save_changes: שמור שינויים
   profile_updated: השינויים נשמרו
   welcome: ברוך הבא
   plan_updated: השינויים נשמרו
+  create_plan: צור תוכנית
+  edit_plan: ערוך תוכנית
+  delete_plan: מחק תוכנית
+    

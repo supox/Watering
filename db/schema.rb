@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817202513) do
+ActiveRecord::Schema.define(:version => 20120818114025) do
 
   create_table "output_valves", :force => true do |t|
     t.string   "type"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(:version => 20120817202513) do
 
   create_table "sensor_readings", :force => true do |t|
     t.integer  "sensor_id"
-    t.integer  "sensor_value"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.datetime "read_time"
+    t.decimal  "sensor_value"
   end
 
   add_index "sensor_readings", ["sensor_id"], :name => "index_sensor_readings_on_sensor_id"

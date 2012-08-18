@@ -69,7 +69,7 @@ class SprinklerPlan < ActiveRecord::Base
     return @_day_of_month if @_day_of_month
     schedule_yml = YAML::load(schedule.to_yaml)
     begin
-      return schedule_yml[:rrules][0][:validations][:day_of_month].to_i
+      return schedule_yml[:rrules][0][:validations][:day_of_month][0].to_i
     rescue
       return 1
     end
@@ -93,18 +93,22 @@ class SprinklerPlan < ActiveRecord::Base
           s.rrule Rule.weekly.day(*weekly)
         when "Monthly"
           day = day_of_month.to_i
-          s.rrule Rule.monthly.day_of_month(day) if day
+          if(day)
+            s.rrule Rule.monthly.day_of_month(day)
+          else
+            raise "Unknown repeat type."
+          end
         else
           raise "Unknown repeat type."
       end
       self.schedule= s
     rescue Exception => e
-      errors.add(:schedule, e.message)
+      errors.add(:schedule, I18n.t("errors.messages.invalid_type") )
     end
   end
 
   def validate_schedule
-      errors.add(:schedule, "cannot be empty." ) if schedule == nil
+      errors.add(:schedule, I18n.t("errors.messages.blank") ) if schedule == nil
   end
   def validate_end_date_before_start_date
     if end_date && start_date

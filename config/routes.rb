@@ -5,14 +5,16 @@ WateringProject::Application.routes.draw do
   
   resources :sprinklers, except: [:create] do
     resources :schedules, only: [:new, :create, :edit, :update]
+    resources :sensors, only: [:new, :create, :show] do
+      member do
+        get :new_reading
+        post :create_reading
+      end
+    end
   end
+  
   resources :users, except: [:index]
-  resources :sessions, only: [:new, :create, :destroy]
-    
-  # Sensor readings
-  match '/sensor_readings/:sensor_id' => 'sensor_reading#new'
-  match '/sensor_readings' => 'sensor_reading#create', via: :post
-  match '/sensor_readings/:sensor_id/graph' => 'sensor_reading#graph'  
+  resources :sessions, only: [:new, :create, :destroy]  
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

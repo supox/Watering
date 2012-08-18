@@ -3,22 +3,25 @@ class SensorReading < ActiveRecord::Base
   
   belongs_to :sensor
 
-  validate :sensor_value, presence: true
-  validates_numericality_of :sensor_value, :only_integer => true, :message => I18n.t(:only_numbers)
-  
-  validate :read_time, presence: true
-  validate :read_time_is_date?
-  
-  validate :sensor_id, presence: true
+  validates :sensor_value, :numericality => {:message => I18n.t(:only_numbers)} 
+  validate :read_time_is_date
+  validates :sensor_id, presence: true
+  before_validation :update_time
 
-  default_scope order: 'sensor_readings.created_at'
+  default_scope order: 'sensor_readings.read_time'
   
-  private
-
-  def read_time_is_date?
-    if !read_time.is_a?(Time)
-      errors.add(:read_time, I18n.t(:must_be_a_valid_date))
-    end
+  protected
+  
+  def read_time_is_date
+    errors.add(:read_time, I18n.t(:must_be_a_valid_date)) unless read_time.is_a?(Time)
   end
-  
+
+  def update_time
+    if(read_time.is_a?(String))
+      begin
+        read_time = Time.parse(read_time)
+      rescue
+      end
+    end
+  end  
 end

@@ -1,5 +1,4 @@
-<h3><%= t(:identifier) %> : <%= sensor.identifier %></h2>
-
+<h3><%= link_to t(:identifier)+" : "+sensor.identifier, [sensor.sprinkler, sensor] %></h3>
 <p><%= t(:port) %> : <%= sensor.port_index %></p>
 <%
 	# Read last sensor readings.
