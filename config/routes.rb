@@ -4,7 +4,7 @@ WateringProject::Application.routes.draw do
   match "/contact", to: "static_pages#contact"
   
   resources :sprinklers, except: [:create] do
-    resources :schedules, only: [:new, :create]
+    resources :schedules, only: [:new, :create, :edit, :update]
   end
   resources :users, except: [:index]
   resources :sessions, only: [:new, :create, :destroy]

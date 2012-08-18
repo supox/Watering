@@ -206,6 +206,10 @@ he:
       sensor_reading:
         sensor_value: ערך הקריאה
         read_time: זמן הקריאה
+      sprinkler_plan:
+        title: השם
+        start_date: זמן התחלה
+        end_date: זמן סיום
     errors:
       <<: *errors
 
@@ -256,3 +260,17 @@ he:
   daily: יומי
   weekly: שבועי
   monthly: חודשי
+  next_plans: תוכניות השקייה
+  new_plan: תוכנית חדשה
+  watering: השקייה
+  today: היום
+  repeat: חזרה
+  title: כותרת
+  plan_created: התוכנית נוצרה
+  could_not_create_plan: לא ניתן ליצור תוכנית
+  start_time: זמן התחלה
+  edit_user: עריכת משתמש
+  save_changes: שמור שינויים
+  profile_updated: השינויים נשמרו
+  welcome: ברוך הבא
+  plan_updated: השינויים נשמרו

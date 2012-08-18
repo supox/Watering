@@ -1,3 +1,20 @@
+GIT
+  remote: git://github.com/justinfrench/formtastic.git
+  revision: 7b7428fa4a6a44aea1e8278523f4f45f2570a33d
+  branch: 2.1-stable
+  specs:
+    formtastic (2.1.1)
+      actionpack (~> 3.0)
+
+GIT
+  remote: https://github.com/cgunther/formtastic-bootstrap.git
+  revision: 4e6a7f50153af805470d43a2bd2c9885a902e4a6
+  branch: bootstrap2-rails3-2-formtastic-2-1
+  specs:
+    formtastic-bootstrap (1.1.2)
+      formtastic
+      rails (>= 3.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,6 +130,8 @@ DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   bootstrap-sass (= 2.0.0)
   coffee-rails (~> 3.2.1)
+  formtastic!
+  formtastic-bootstrap!
   googlecharts
   ice_cube
   jquery-rails

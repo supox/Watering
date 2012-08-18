@@ -166,3 +166,15 @@ $grayMediumLight: #eaeaea;
 #time_selector {
   margin:1em;
 }
+
+.radio, .checkbox {
+  padding-left: 0;
+  padding-right: 18px;
+}
+
+.radio input[type="radio"], .checkbox input[type="checkbox"] {
+  float: right;
+  margin-left: 0px;
+  margin-right: -18px;
+}
+

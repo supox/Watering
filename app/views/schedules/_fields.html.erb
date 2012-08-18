@@ -1,0 +1,52 @@
+		<%= render 'shared/error_messages', object: f.object %>
+		
+		<%= f.input :title, label: t(:title) %>
+		<%= f.input :start_date, label: t(:start_time), :as => :string %>
+		
+		<%= javascript_tag do %>
+		function updateForm() {
+			val = $("#sprinkler_plan_repeat").val();
+			$("#sprinkler_plan_repeat option").each(function(value){
+				$("#"+this.value).hide();
+			});
+			$("#" + val).show();
+		}
+		$(document).ready(function() {
+			$("#sprinkler_plan_repeat").change(function() {
+				updateForm();
+			});
+			updateForm();
+			var weekly = <%= raw @plan.weekly.to_json %>;
+			for (dayIndex in weekly) {
+				$("#sprinkler_plan_weekly_" + weekly[dayIndex] ).prop("checked", true);
+			}
+			
+			
+		});
+		<% end %>
+		<%= f.input(:repeat, as: :select, collection: {t(:daily) => "Daily", t(:weekly) => "Weekly", t(:monthly) => "Monthly"}, label: t(:repeat) )%>
+		<div id="Daily"></div>
+		<div id="Weekly" style="display:none;">
+			<%=
+				day_names = I18n.t("date.day_names");
+				day_values = Date::ABBR_DAYNAMES;
+				week_days = Hash[day_names.zip(0..6)];
+				f.input :weekly, as: :check_boxes, collection: week_days, label: t(:weekly), :hidden_fields => false
+			%>
+		</div>
+		<div id="Monthly" style="display:none;">
+			<%= fields_for :monthly do |d| %>
+				<%= d.label t(:monthly) %>
+				<%= d.hidden_field :day_of_month %>
+				<div id="div_day_of_month"></div>
+	
+				<%= javascript_tag do %>
+				var beginDate = new Date();
+				beginDate.setDate(1);
+				var endDate = new Date();
+				endDate.setDate(31);
+				$("#div_day_of_month").datepicker( {altField: "#monthly_day_of_month", altFormat: "d", minDate:beginDate , maxDate: endDate } );
+				<% end %>
+			<% end %>
+		</div>
+		<%= f.submit t(:send), class: "btn btn-large btn-primary" %>

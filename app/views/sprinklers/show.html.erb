@@ -1,2 +1,7 @@
 <h1>Sprinkler <%= @sprinkler.id %></h1>
 <%= render @sprinkler.sensors unless  @sprinkler.sensors.empty? %>
+
+<%= 
+	plans = @sprinkler.plans(Time.now + 30.days, Time.now - 30.days)
+	render partial: "sprinkler_plans/sprinkler_plans", object: plans, locals: {sprinkler_id: @sprinkler.id}
+ %>

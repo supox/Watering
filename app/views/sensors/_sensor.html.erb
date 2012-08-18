@@ -2,6 +2,7 @@
 
 <p><%= t(:port) %> : <%= sensor.port_index %></p>
 <%
+	# Read last sensor readings.
 	events_time = 3.days.ago	
 	if not sensor.sensor_readings.count(:conditions => ["read_time >= ?", events_time]).zero?
 %>

@@ -1,0 +1,26 @@
+<%= javascript_tag do %>
+
+	$(document).ready(function() {
+		$('#calendar').fullCalendar({
+			editable: false,
+			events: calendar_events,
+			timeFormat: 'H(:mm)',
+			dayNamesShort: <%= raw I18n.t("date.abbr_day_names").to_json %>,
+			monthNames: <%= raw I18n.t("date.month_names").to_json %>,
+			buttonText: {today: "<%= j t(:today) %>"}
+		});
+	});
+
+	calendar_events = 
+	<%=
+		calendar_events = data.collect do |key|
+			if(key[:url])
+				{title: truncate(key[:name], length:15), start: key[:date], allDay: false, url: key[:url] }
+			else
+				{title: truncate(key[:name], length:15), start: key[:date], allDay: false }
+			end
+		end
+		raw calendar_events.to_json
+	%>
+<% end %>
+<div id="calendar"></div>

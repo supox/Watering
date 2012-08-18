@@ -1,11 +1,11 @@
-<% provide(:title, t(:new_user)) %>
-<h1><%= t(:new_user) %></h1>
+<% provide(:title, t(:edit_user)) %>
+<h1><%= t(:edit_user) %></h1>
 
 <div class="row">
 	<div class="span6 offset3">
 		<%= form_for(@user) do |f| %>
 		<%= render 'fields', f: f %>
-		<%= f.submit t(:create_user), class: "btn btn-large btn-primary" %>
+		<%= f.submit t(:save_changes), class: "btn btn-large btn-primary" %>
 		<% end %>
 	</div>
 </div>

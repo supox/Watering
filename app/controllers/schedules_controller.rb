@@ -4,36 +4,16 @@ class SchedulesController < ApplicationController
   
   before_filter :valid_sprinkler
   before_filter :user_can_show_sprinkler
-
+  before_filter :valid_schedule, only: [:edit, :update]
+  
   def create
-    @plan = @sprinkler.sprinkler_plans.build
-    schedule = Schedule.new(Time.now)
-    case params[:repeat] 
-    when "Daily"
-      schedule.rrule Rule.daily
-    when "Weekly"
-      day_values = Date::ABBR_DAYNAMES
-      day_values.each_with_index do |val,i|
-        if params[:weekly][val]=="1"
-             schedule.rrule Rule.daily.day(i)
-        end
-      end
-    when "Monthly"
-      day = params[:day_of_month]
-      schedule.rrule Rule.monthly.day_of_month(day)
-    else
-      flash[:error] = "Could not create plan."
-      render 'new'
-      return
-    end
- 
-    @plan.schedule = schedule
+    @plan = @sprinkler.sprinkler_plans.build(params[:sprinkler_plan])
     
     if @plan.save
-      flash[:success] = "Plan created!"
+      flash[:success] = t(:plan_created)
       redirect_to @sprinkler
     else
-      flash[:error] = "Could not create plan."
+      flash[:error] = t(:could_not_create_plan)
       render 'new'
     end
   end
@@ -41,5 +21,23 @@ class SchedulesController < ApplicationController
   def new
     @plan = @sprinkler.sprinkler_plans.build
   end
+  
+  def edit
+  end
+  
+  def update
+    if @plan.update_attributes(params[:sprinkler_plan])
+      flash[:success] = t(:plan_updated)
+      redirect_to @sprinkler
+    else
+      render 'edit'
+    end    
+  end
+    
+  def valid_schedule
+    @plan = @sprinkler.sprinkler_plans.find_by_id(params[:id])
+    redirect_to @sprinkler unless @plan
+  end
+  private
   
 end
