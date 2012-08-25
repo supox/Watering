@@ -4,9 +4,11 @@ WateringProject::Application.routes.draw do
   match "/contact", to: "static_pages#contact"
   
   resources :sprinklers, except: [:create] do
-    resources :schedules, only: [:new, :create, :edit, :update]
-    resources :sensors, only: [:new, :create, :show] do
-      member do
+    resources :schedules, except: [ :index, :show ]
+    resources :valves, except: [:index]
+    resources :alarms, except: [:index]
+    resources :sensors, except: [:index] do
+      member do # Sensor readings
         get :new_reading
         post :create_reading
       end

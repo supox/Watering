@@ -6,8 +6,8 @@ module SprinklersHelper
   end
 
   def user_can_show_sprinkler
-    if( not signed_in? or
-        not @sprinkler.users.find_by_id(current_user.id) and not current_user.admin?  
+    if( !signed_in? ||
+        !@sprinkler.users.find_by_id(current_user.id) && !current_user.admin?  
       )
       redirect_to(root_path)
     end

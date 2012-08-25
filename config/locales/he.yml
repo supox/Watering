@@ -199,8 +199,11 @@ he:
       <<: *errors
   activerecord:
     models:
+      user: משתמש
       sensor_reading: קריאה
       sprinkler_plan: תוכנית
+      valf: צינור
+      sensor: חיישן
     attributes:
       user:
         password: "הקוד"
@@ -217,9 +220,27 @@ he:
         start_date: זמן התחלה
         end_date: זמן סיום
         schedule: התזמון
+        plan_type: תוכנית השקיה
+      valf:
+        identifier: מזהה
+        port_index: מספר יציאה
+      sensor:
+        identifier: מזהה
+        port_index: מספר יציאה
+        sensor_type: סוג חיישן
     errors:
       <<: *errors
 
+  classy_enum:
+    sensor_type:
+      temperature: 'טמפרטורה'
+      pressure: 'לחץ'
+      humidity: 'לחות'
+    plan_type:
+      watering: השקייה
+      fertilizing: דישון
+      cleaning: שטיפה
+      
   css:
     right: left
     left: right
@@ -261,6 +282,10 @@ he:
   form_contains_error: "הטופס מכיל שגיאות"
   new_reading: "קריאה חדשה"
   send: 'שלח'
+  new_sensor: צור חיישן
+  edit_sensor: ערוך חיישן
+  sensor_saved: החיישן נשמר!
+  could_not_create_sensor: לא ניתן ליצור את החיישן
   sensor_value: קריאת החיישן
   sensor_id: מזהה חיישן
   reading_created: הקריאה נוצרה!
@@ -297,3 +322,14 @@ he:
   edit_plan: ערוך תוכנית
   delete_plan: מחק תוכנית
   back: חזור
+  clear: נקה
+  washing: שטיפה
+  watering: השקייה
+  new_valf: צינור חדש
+  edit_valf: ערוך צינור
+  valf_created: הצינור נשמר
+  could_not_create_valf: השמירה נכשלה
+  deleted_success: המחיקה הצליחה
+  delete: מחק
+  you_sure?: אתה בטוח?
+  delete_plan: מחק תוכנית

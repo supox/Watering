@@ -1,13 +1,11 @@
-<%= render 'shared/error_messages', object: f.object %>
+<%= f.semantic_errors :state %>
 
-<%= f.label :name, t(:name) %>
-<%= f.text_field :name %>
+<%= f.input :name %>
+<%= f.input :email, as: :email %>
+<%= f.input :password, as: :password, label: t(:password) %>
+<%= f.input :password_confirmation, as: :password %>
 
-<%= f.label :email, t(:email) %>
-<%= f.text_field :email %>
-
-<%= f.label :password, t(:password) %>
-<%= f.password_field :password %>
-
-<%= f.label :password_confirmation, t(:confirmation) %>
-<%= f.password_field :password_confirmation %>
+<%= f.actions do %>
+	<%= f.action :submit %>
+	<%= f.action :cancel, :as => :link, label: :cancel %>
+<% end %>		

@@ -1,5 +1,18 @@
-<h1>Sprinkler <%= @sprinkler.id %></h1>
-<%= render @sprinkler.sensors unless  @sprinkler.sensors.empty? %>
+<h1><%= t(:sprinkler) + " " + @sprinkler.id.to_s.html_safe %></h1>
+
+<% if @sprinkler.sensors.any? %>
+<h3><%= t(:sensors) %></h3>
+<ul class="sensors">
+	<%= render partial: 'shared/sensor', collection: @sprinkler.sensors %>
+</ul>
+<% end %>
+
+<% if @sprinkler.valves.any? %>
+<h3><%= t(:valves) %></h3>
+<ul class="valves">
+	<%= render partial: 'shared/valf', collection: @sprinkler.valves %>
+</ul>
+<% end %>
 
 <%= 
 	plans = @sprinkler.plans(Time.now + 30.days, Time.now - 30.days)

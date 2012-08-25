@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :correct_user, except: [:new]
+  before_filter :correct_user, except: [:new, :create]
   before_filter :admin_user, only: [:destroy]
   
   def new
@@ -37,8 +37,8 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_path
+    flash[:success] = t(:deleted_success)
+    redirect_to root_path
   end
 
   def correct_user

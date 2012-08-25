@@ -9,7 +9,8 @@ class Sprinkler < ActiveRecord::Base
   def plans( to = Time.now+30.days, from = Time.now )
     occurerences = sprinkler_plans.collect do |plan|
       if plan.schedule
-        plan.schedule.occurrences_between( from, to ).collect do |p|
+        
+        plan.schedule.occurrences_between( from, [to, (plan.end_date or to)].min ).collect do |p|
           {date:p, title:plan.title, id:plan.id}
         end
       end

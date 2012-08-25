@@ -10,6 +10,8 @@ module GraphHelper
     render 'shared/graph', data: graph_data, title:graph_title
   end
   
+  # Same as show_graph, but render a js update code instead.
+  # Expected input : graph_data is an array of hash with keys :date and :value 
   def update_graph( graph_data, graph_title )
     render 'shared/graph', data: graph_data, title:graph_title
   end

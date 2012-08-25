@@ -1,10 +1,20 @@
 class SensorsController < ApplicationController
   include SprinklersHelper
+  include ApiHelper
 
   before_filter :valid_sprinkler
-  before_filter :user_can_show_sprinkler, only: [:show]
-  before_filter :valid_api_key, only:[:create] # A machine api key validation
-  before_filter :valid_sensor
+  before_filter :valid_sensor, except:[ :new, :create ]
+  before_filter :user_can_show_sprinkler, except:[ :create_reading ]
+
+  before_filter(:only => :create_reading) do |controller|
+    if controller.request.format.json?
+      valid_api_key
+    else
+      user_can_show_sprinkler
+    end
+  end
+
+  # Sensors Reading
   def new_reading
     @sensor_reading = @sensor.sensor_readings.build
   end
@@ -37,6 +47,7 @@ class SensorsController < ApplicationController
     end
   end
 
+  # Sensors restful
   def show
     days_to_plot = (params[:time_ago] || 7).to_i
     date_to_plot = days_to_plot.days.ago
@@ -52,18 +63,49 @@ class SensorsController < ApplicationController
       format.html
       format.js
     end
-
   end
 
+  def new
+    @sensor = @sprinkler.sensors.build
+  end
+
+  def create
+    @sensor = @sprinkler.sensors.build(params[:sensor]);
+    if @sensor.save
+      flash[:success] = t(:sensor_saved)
+      redirect_to action: :new
+    else
+      flash[:error] = t(:could_not_create_sensor)
+      render action: :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @sensor.update_attributes(params[:sensor])
+      flash[:success] = t(:sensor_saved)
+      redirect_to action: :show
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @sensor.destroy
+    flash[:success] = t(:deleted_success)
+    redirect_to @sprinkler
+  end
+  
+protected
   def valid_sensor
     @sensor_id = params[:id]
-    redirect_to root_path unless @sensor_id
-    @sensor = @sprinkler.sensors.find_by_id @sensor_id
-    redirect_to root_path unless @sensor
+    if @sensor_id
+      @sensor = @sprinkler.sensors.find_by_id @sensor_id
+      redirect_to root_path unless @sensor
+    else
+      redirect_to root_path
+    end
   end
-
-  def valid_api_key
-    # redirect_to root_path unless params[:api_key] == Rails.configuration.sprinklers_api_key
-  end
-
 end

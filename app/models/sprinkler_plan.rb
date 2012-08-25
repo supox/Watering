@@ -2,10 +2,12 @@ class SprinklerPlan < ActiveRecord::Base
   include IceCube
 
   belongs_to :sprinkler
-  attr_accessible :start_date, :end_date, :title, :repeat, :weekly, :day_of_month
+  attr_accessible :start_date, :end_date, :title, :repeat, :weekly, :day_of_month, :plan_type
+  classy_enum_attr :plan_type
 
   validates :title, presence:true, length: { minimum: 3, maximum: 50 }
   validates :start_date, presence:true
+  validates :plan_type, presence:true
   validate :validate_end_date_before_start_date
   validate :validate_schedule
   
@@ -16,7 +18,7 @@ class SprinklerPlan < ActiveRecord::Base
   def schedule=(new_schedule)
     if( new_schedule != nil)
       write_attribute(:schedule, new_schedule.to_hash)
-    end 
+    end
   end
 
   def schedule
@@ -115,5 +117,5 @@ class SprinklerPlan < ActiveRecord::Base
       errors.add(:end_date, "End date should be later than start date.") if end_date < start_date
     end
   end
-
+  
 end

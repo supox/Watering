@@ -1,0 +1,16 @@
+<li id="<%= valf.id %>">
+	<span class="content"><%=
+		valf_description = "#{t(:port)} - #{valf.port_index.to_s}".html_safe
+		link_to valf_description, sprinkler_valf_path(valf.sprinkler_id, valf.id)
+	%></span>
+
+	<% if current_user.admin? %>
+	<span class="content"> <%= link_to "(#{t(:delete)})",
+		sprinkler_valf_path(valf.sprinkler_id, valf.id),
+		method: :delete,
+		data: { confirm: t(:you_sure?) },
+		title: valf.identifier %>
+	</span>
+	<% end %>
+	
+</li>

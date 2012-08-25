@@ -1,5 +1,5 @@
 <% provide(:title, t(:sensor_readings) )%>
-<h1><%= t(:sensor_readings) %></h1>
+<h1><%= t(:sensor_readings) %> - <%= @sensor.sensor_type.text %></h1>
 <%=
 	show_graph(@data, t(:sensor_readings))
 %>

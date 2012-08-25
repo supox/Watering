@@ -4,7 +4,7 @@ class SchedulesController < ApplicationController
   
   before_filter :valid_sprinkler
   before_filter :user_can_show_sprinkler
-  before_filter :valid_schedule, only: [:edit, :update]
+  before_filter :valid_schedule, except: [:new, :create]
   
   def create
     @plan = @sprinkler.sprinkler_plans.build(params[:sprinkler_plan])
@@ -33,11 +33,18 @@ class SchedulesController < ApplicationController
       render 'edit'
     end    
   end
-    
+
+  def destroy
+    @plan.destroy
+    flash[:success] = t(:deleted_success)
+    redirect_to @sprinkler
+  end
+
+  protected
+      
   def valid_schedule
     @plan = @sprinkler.sprinkler_plans.find_by_id(params[:id])
     redirect_to @sprinkler unless @plan
   end
-  private
-  
+ 
 end
