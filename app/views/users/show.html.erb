@@ -10,6 +10,6 @@
 <% end %>
 
 <% if current_user.admin? && !current_user?(@user) %>
-| <%= link_to t(:delete), @user, method: :delete,
+<%= link_to t(:delete), @user, method: :delete,
 data: { confirm: t(:you_sure?) } %>
 <% end %>

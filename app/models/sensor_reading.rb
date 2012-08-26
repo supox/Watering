@@ -8,7 +8,7 @@ class SensorReading < ActiveRecord::Base
   validates :sensor_id, presence: true
   before_validation :update_time
 
-  default_scope order: 'sensor_readings.read_time'
+  default_scope order: 'sensor_readings.read_time DESC'
 
   protected
   def read_time_is_date

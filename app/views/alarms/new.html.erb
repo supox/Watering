@@ -1,2 +1,9 @@
-<h1>Alarms#new</h1>
-<p>Find me in app/views/alarms/new.html.erb</p>
+<% provide(:title, t(:new_alarm)) %>
+<h1><%= t(:new_alarm)%></h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= semantic_form_for(@alarm, url: url_for(action: 'create')) do |f| %>
+			<%= render 'fields', f: f %>
+		<% end %>
+	</div>
+</div>

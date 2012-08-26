@@ -182,7 +182,7 @@ he:
         delimiter: ''
   support:
     array:
-      last_word_connector: ! ', את '
+      last_word_connector: ! ' ו '
       two_words_connector: ! ' ו'
       words_connector: ! ', '
   time:
@@ -204,6 +204,7 @@ he:
       sprinkler_plan: תוכנית
       valf: צינור
       sensor: חיישן
+      alarm: התראה
     attributes:
       user:
         password: "הקוד"
@@ -228,6 +229,10 @@ he:
         identifier: מזהה
         port_index: מספר יציאה
         sensor_type: סוג חיישן
+      alarm:
+         alarm_title: כותרת
+         alarm_value: ערך
+         condition_type: תנאי
     errors:
       <<: *errors
 
@@ -240,6 +245,11 @@ he:
       watering: השקייה
       fertilizing: דישון
       cleaning: שטיפה
+    condition_type:
+      greater_than: "גדול מ"
+      equal: "שווה ל"
+      less_than: "פחות מ"
+      not_equal: "לא שווה ל"
       
   css:
     right: left
@@ -333,3 +343,10 @@ he:
   delete: מחק
   you_sure?: אתה בטוח?
   delete_plan: מחק תוכנית
+  new_alarm: התראה חדשה
+  edit_alarm: ערוך התראה
+  alarm_saved: ההתראה נוצרה
+  changes_saved: השינויים נשמרו
+  could_not_create: לא ניתן לשמור
+  for_sensor: עבור חיישן
+  edit: ערוך

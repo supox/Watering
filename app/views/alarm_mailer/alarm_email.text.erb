@@ -1,0 +1,7 @@
+<%= t :new_alarm %> - <%= @alarm.title %>
+=========================================
+<%= t :new_alarm %>
+
+<%= t :sensor_value %> : <%= @alarm.sensor.last_reading.sensor_value %>
+
+<%= sprinkler_url(@alarm.sensor.sprinkler) %>

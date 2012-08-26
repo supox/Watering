@@ -6,8 +6,8 @@ WateringProject::Application.routes.draw do
   resources :sprinklers, except: [:create] do
     resources :schedules, except: [ :index, :show ]
     resources :valves, except: [:index]
-    resources :alarms, except: [:index]
     resources :sensors, except: [:index] do
+      resources :alarms, except: [:index]
       member do # Sensor readings
         get :new_reading
         post :create_reading

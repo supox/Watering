@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120825192806) do
+ActiveRecord::Schema.define(:version => 20120826182356) do
+
+  create_table "alarms", :force => true do |t|
+    t.integer  "sensor_id"
+    t.string   "alarm_title"
+    t.float    "alarm_value"
+    t.string   "condition_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "alarms", ["sensor_id"], :name => "index_alarms_on_sensor_id"
 
   create_table "output_valves", :force => true do |t|
     t.string   "type"

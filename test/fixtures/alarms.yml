@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sensor_id: 1
+  alarm_title: MyString
+  alarm_value: 1
+  condition_type: MyString
+
+two:
+  sensor_id: 1
+  alarm_title: MyString
+  alarm_value: 1
+  condition_type: MyString

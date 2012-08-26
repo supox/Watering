@@ -21,25 +21,25 @@ class SensorsController < ApplicationController
 
   def create_reading
     respond_to do |format|
-      format.json do
-        logger.debug params.to_yaml
-
-        # skip_before_filter :authenticate_user!
-        @sensor_reading = @sensor.sensor_readings.build(params[:sensor_reading]);
-        if @sensor_reading.save
-          render "sensor_reading_ack"
-        else
-          render "sensor_reading_err", :status => :bad_request
-          logger.debug @sensor_reading.errors.to_yaml
+      @sensor_reading = @sensor.sensor_readings.build(params[:sensor_reading])
+      if @sensor_reading.save
+        
+        # Check all alarms if need to notify by mail 
+        @sensor.alarms.each do |alarm|
+          if(alarm.will_alarm?(@sensor_reading.sensor_value))
+            AlarmMailer.alarm_email(alarm).deliver
+          end
         end
-      end
 
-      format.html do
-        @sensor_reading = @sensor.sensor_readings.build(params[:sensor_reading]);
-        if @sensor_reading.save
+        # Send OK to user        
+        format.json { render "sensor_reading_ack" }
+        format.html do
           flash[:success] = t(:reading_created)
           redirect_to action: "new_reading"
-        else
+        end
+      else
+        format.json { render "sensor_reading_err", :status => :bad_request }
+        format.html do
           flash[:error] = t(:could_not_create_reading)
           render action: "new_reading"
         end
@@ -58,7 +58,7 @@ class SensorsController < ApplicationController
       value:reading.sensor_value.to_i,
       } }
     logger.debug @data.to_yaml
-    
+
     respond_to do |format|
       format.html
       format.js
@@ -97,8 +97,9 @@ class SensorsController < ApplicationController
     flash[:success] = t(:deleted_success)
     redirect_to @sprinkler
   end
-  
-protected
+
+  protected
+
   def valid_sensor
     @sensor_id = params[:id]
     if @sensor_id
