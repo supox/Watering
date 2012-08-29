@@ -10,7 +10,7 @@ class SensorsController < ApplicationController
     if controller.request.format.json?
       valid_api_key
     else
-      user_can_show_sprinkler
+      # user_can_show_sprinkler
     end
   end
 

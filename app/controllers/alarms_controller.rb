@@ -3,7 +3,7 @@ class AlarmsController < ApplicationController
   before_filter :valid_sprinkler
   before_filter :valid_sensor
   before_filter :user_can_show_sprinkler
-  before_filter :valid_alarm, except:[:new, :create]
+  before_filter :valid_alarm, except: [:new, :create]
 
   def new
     @alarm = @sensor.alarms.build
