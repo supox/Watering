@@ -1,5 +1,17 @@
 <% provide(:title, t(:sensor_readings) )%>
 <h1><%= t(:sensor_readings) %> - <%= @sensor.sensor_type.text %></h1>
+
+
+<div class="class="btn-toolbar">
+	<div class="btn-group">
+	  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><%= t(:edit) %> <span class="caret"></span></button>
+	  <ul class="dropdown-menu">
+	    <li><%= link_to t(:new_alarm), new_sprinkler_sensor_alarm_path(@sprinkler,@sensor) %></li>
+	    <li><%= link_to t(:to_all_alarms), sprinkler_sensor_alarms_path(@sprinkler,@sensor) %></li>
+	  </ul>
+	</div>
+</div>	
+
 <%=
 	show_graph(@data, t(:sensor_readings))
 %>

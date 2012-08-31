@@ -7,7 +7,7 @@ WateringProject::Application.routes.draw do
     resources :schedules, except: [ :index, :show ]
     resources :valves, except: [:index]
     resources :sensors, except: [:index] do
-      resources :alarms, except: [:index]
+      resources :alarms 
       member do # Sensor readings
         get :new_reading
         post :create_reading

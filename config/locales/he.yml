@@ -344,9 +344,12 @@ he:
   you_sure?: אתה בטוח?
   delete_plan: מחק תוכנית
   new_alarm: התראה חדשה
+  to_all_alarms: לכל ההתראות
+  all_alarms: כל ההתראות
   edit_alarm: ערוך התראה
   alarm_saved: ההתראה נוצרה
   changes_saved: השינויים נשמרו
   could_not_create: לא ניתן לשמור
   for_sensor: עבור חיישן
   edit: ערוך
+   

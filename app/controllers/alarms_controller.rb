@@ -3,8 +3,12 @@ class AlarmsController < ApplicationController
   before_filter :valid_sprinkler
   before_filter :valid_sensor
   before_filter :user_can_show_sprinkler
-  before_filter :valid_alarm, except: [:new, :create]
+  before_filter :valid_alarm, except: [:new, :create, :index]
 
+  def index
+    @alarms = @sensor.alarms.paginate(page: params[:page])
+  end
+  
   def new
     @alarm = @sensor.alarms.build
   end
