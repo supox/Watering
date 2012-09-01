@@ -1,2 +1,9 @@
-<h1>Sprinklers#edit</h1>
-<p>Find me in app/views/sprinklers/edit.html.erb</p>
+<% provide(:title, t(:edit_sprinkler)) %>
+<h1><%= t(:edit_sprinkler)%></h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= semantic_form_for(@sprinkler, url: url_for(action: 'update')) do |f| %>
+			<%= render 'fields', f: f %>
+		<% end %>
+	</div>
+</div>

@@ -3,7 +3,7 @@ WateringProject::Application.routes.draw do
   match "/about", to: "static_pages#about"
   match "/contact", to: "static_pages#contact"
   
-  resources :sprinklers, except: [:create] do
+  resources :sprinklers do
     resources :schedules, except: [ :index, :show ]
     resources :valves, except: [:index]
     resources :sensors, except: [:index] do

@@ -34,7 +34,7 @@ class ValvesController < ApplicationController
   def update
     if @valf.update_attributes(params[:valf])
       flash[:success] = t(:valf_created)
-      redirect_to @valf
+      redirect_to sprinkler_valf_path(@sprinkler,@valf)
     else
       render 'edit'
     end

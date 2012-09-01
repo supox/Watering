@@ -4,7 +4,12 @@ class Sprinkler < ActiveRecord::Base
   has_many :valves, dependent: :destroy
   has_many :sprinkler_plans, dependent: :destroy
 
-  attr_accessible :identifier, :latitude, :longitude, :mac_address, :machine_version, :refresh_rate_seconds
+  attr_accessible :identifier, :latitude, :longitude,
+                  :mac_address, :machine_version, :refresh_rate_seconds,
+                  :main_valve_timing, :main_valve_delay
+  classy_enum_attr :main_valve_timing, :allow_nil => false  
+  
+  # TODO - add verifies
   
   def plans( to = Time.now+30.days, from = Time.now )
     occurerences = sprinkler_plans.collect do |plan|

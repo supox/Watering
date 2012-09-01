@@ -3,11 +3,10 @@ class SprinklerPlan < ActiveRecord::Base
 
   belongs_to :sprinkler
   attr_accessible :start_date, :end_date, :title, :repeat, :weekly, :day_of_month, :plan_type
-  classy_enum_attr :plan_type
+  classy_enum_attr :plan_type, allow_nil: false
 
   validates :title, presence:true, length: { minimum: 3, maximum: 50 }
   validates :start_date, presence:true
-  validates :plan_type, presence:true
   validate :validate_end_date_before_start_date
   validate :validate_schedule
   

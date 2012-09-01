@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826182356) do
+ActiveRecord::Schema.define(:version => 20120901195723) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "sensor_id"
@@ -65,8 +65,10 @@ ActiveRecord::Schema.define(:version => 20120826182356) do
     t.integer  "refresh_rate_seconds"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.string   "main_valve_timing",    :default => "simultaneous"
+    t.time     "main_valve_delay",     :default => '2000-01-01 00:00:00'
   end
 
   add_index "sprinklers", ["mac_address"], :name => "index_sprinklers_on_mac_address"
@@ -97,8 +99,9 @@ ActiveRecord::Schema.define(:version => 20120826182356) do
     t.string   "identifier"
     t.integer  "port_index"
     t.integer  "sprinkler_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "irrigation_mode"
   end
 
   add_index "valves", ["sprinkler_id"], :name => "index_valves_on_sprinkler_id"

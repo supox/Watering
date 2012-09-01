@@ -200,9 +200,10 @@ he:
   activerecord:
     models:
       user: משתמש
+      sprinkler: בקר
       sensor_reading: קריאה
       sprinkler_plan: תוכנית
-      valf: צינור
+      valf: מגוף
       sensor: חיישן
       alarm: התראה
     attributes:
@@ -225,6 +226,7 @@ he:
       valf:
         identifier: מזהה
         port_index: מספר יציאה
+        irrigation_mode: סוג השקייה
       sensor:
         identifier: מזהה
         port_index: מספר יציאה
@@ -233,6 +235,15 @@ he:
          alarm_title: כותרת
          alarm_value: ערך
          condition_type: תנאי
+      sprinkler:
+         identifier: מזהה
+         latitude: קו רוחב
+         longitude: קו אורך
+         mac_address: מזהה mac
+         machine_version: גרסת מכונה
+         refresh_rate_seconds: זמן עדכון בשניות
+         main_valve_timing: תזמון המגוף הראשי
+         main_valve_delay: השהיית המגוף הראשי
     errors:
       <<: *errors
 
@@ -250,7 +261,14 @@ he:
       equal: "שווה ל"
       less_than: "פחות מ"
       not_equal: "לא שווה ל"
-      
+    irrigation_mode:
+      time: זמן
+      volume: נפח
+    main_valve_timing:
+      delayed: מושהה
+      advanced: מקדים
+      simultaneous: "בו זמנית"
+     
   css:
     right: left
     left: right
@@ -287,7 +305,11 @@ he:
   watering_team: מערכות השקייה בע"מ
   sprinkler: בקר
   sprinklers: בקרים
-  valves: צינורות
+  sprinkler_created: הבקר נשמר
+  could_not_create_sprinkler: לא ניתן לשמור את הבקר
+  new_sprinkler: בקר חדש
+  edit_sprinkler: ערוך בקר
+  valves: מגופים
   sensors: חיישנים
   form_contains_error: "הטופס מכיל שגיאות"
   new_reading: "קריאה חדשה"
@@ -335,9 +357,9 @@ he:
   clear: נקה
   washing: שטיפה
   watering: השקייה
-  new_valf: צינור חדש
-  edit_valf: ערוך צינור
-  valf_created: הצינור נשמר
+  new_valf: מגוף חדש
+  edit_valf: ערוך מגוף
+  valf_created: המגוף נשמר
   could_not_create_valf: השמירה נכשלה
   deleted_success: המחיקה הצליחה
   delete: מחק
