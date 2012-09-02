@@ -1,9 +1,0 @@
-<% provide(:title, t(:edit_alarm)) %>
-<h1><%= t(:edit_alarm)%></h1>
-<div class="row">
-	<div class="span6 offset3">
-		<%= semantic_form_for(@alarm, url: url_for(action: 'update')) do |f| %>
-			<%= render 'fields', f: f %>
-		<% end %>
-	</div>
-</div>
