@@ -1,0 +1,10 @@
+- provide(:title, t(:sign_in))
+%h1= t(:sign_in)
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(:session, url: sessions_path) do |f|
+      = f.input :email, label: t(:email)
+      = f.password_field :password, label: t(:password)
+      = f.actions :submit, label: t(:sign_in)
+        

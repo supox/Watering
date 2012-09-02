@@ -1,0 +1,23 @@
+%li{ :id => sensor.id }
+  %span.content
+    - sensor_description = "#{t(:port)} #{sensor.port_index.to_s} - #{sensor.sensor_type.text}".html_safe
+    = link_to sensor_description, sprinkler_sensor_path(sensor.sprinkler_id, sensor.id)
+  -if current_user.admin?
+    %span.content
+      = link_to "(#{t(:delete)})",
+		  sprinkler_sensor_path(sensor.sprinkler_id, sensor.id),
+		  method: :delete,
+		  data: { confirm: t(:you_sure?) },
+		  title: sensor.identifier
+	
+  -if sensor.last_readings.any?
+    %h4= t(:last_readings)
+    %table.table.table-condensed.ReadingTable
+      %tr
+        %th= t :reading_time
+        %th= t :reading
+      -sensor.last_readings.each do |reading|
+        %tr
+          %td= l reading.read_time, format: :short
+          %td= reading.sensor_value
+          

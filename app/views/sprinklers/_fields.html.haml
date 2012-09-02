@@ -1,0 +1,13 @@
+= f.semantic_errors :state
+
+= f.input :identifier
+= f.input :mac_address
+= f.input :machine_version
+= f.input :refresh_rate_seconds, as: :number
+= f.input :main_valve_timing, as: :enum_select
+= f.input :main_valve_delay
+
+= f.actions do
+	= f.action :submit, label: true
+	= f.action :cancel, :as => :link, label: :cancel
+

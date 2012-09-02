@@ -1,0 +1,17 @@
+-# Just a debug, will be removed when we'll have a proper machines.
+- provide(:title, t(:new_reading) )
+%h1= t(:new_reading)
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@sensor_reading, url: url_for(action: 'create_reading')) do |f|
+      = f.semantic_errors :state
+      = hidden_field_tag(:human, :value => "1")
+      = f.input :sensor_value, autofocus: true, label: t(:sensor_value)
+      = f.input :read_time, label: t(:read_time), as: :string
+      = f.actions do
+        = f.action :submit, label: true
+        = f.action :cancel, :as => :link, label: :cancel
+        	
+    :javascript
+      $('\#sensor_reading_read_time').datetimepicker({ dateFormat: 'dd/mm/yy'});

@@ -1,0 +1,7 @@
+= f.semantic_errors :state
+= f.input :alarm_title
+= f.input :condition_type, as: :enum_select
+= f.input :alarm_value, as: :number
+= f.actions do
+	= f.action :submit, label: true
+	= f.action :cancel, :as => :link, label: :cancel

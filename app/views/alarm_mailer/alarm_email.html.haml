@@ -1,0 +1,11 @@
+!!! 5
+%html
+  %head
+    %meta {: content=> "text/html; charset=UTF-8", "http-equiv"=>"Content-Type" }
+  %body
+    %h1
+      = t(:new_alarm) + " - "
+      = @alarm.title
+    %p= t :new_alarm
+    %p= t(:sensor_value) + " : " + @alarm.sensor.last_reading.sensor_value.to_s
+    %p= sprinkler_url(@alarm.sensor.sprinkler)

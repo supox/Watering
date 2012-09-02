@@ -23,6 +23,7 @@ gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branc
 gem 'formtastic-bootstrap', :git => 'https://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
 gem "classy_enum", "~> 3.1.1" # Classy enum for enum database support
 gem 'bootstrap-will_paginate', '0.0.6' # Pagination
+gem "haml-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,24 @@
+%h1= t(:sprinkler) + " " + @sprinkler.id.to_s.html_safe
+
+%div.btn-toolbar.entry{:style => "padding-left:6em;"}
+  %div.btn-group
+    %button.btn.btn-primary.dropdown-toggle.entry{"data-toggle" => "dropdown"}
+      =t(:edit)
+      %span#caret
+    %ul.dropdown-menu
+      %li= link_to t(:new_valf), new_sprinkler_valf_path(@sprinkler)
+      %li= link_to t(:new_sensor), new_sprinkler_sensor_path(@sprinkler)
+      %li= link_to t(:new_plan), new_sprinkler_schedule_path(@sprinkler)
+
+- if @sprinkler.sensors.any?
+  %h3= t(:sensors)
+  %ul.sensors
+    =render partial: 'shared/sensor', collection: @sprinkler.sensors
+
+- if @sprinkler.valves.any?
+  %h3= t(:valves)
+  %ul.valves
+    = render partial: 'shared/valf', collection: @sprinkler.valves
+
+-	plans = @sprinkler.plans(Time.now + 30.days, Time.now - 30.days)
+= render partial: "sprinkler_plans/sprinkler_plans", object: plans, locals: {sprinkler_id: @sprinkler.id}

@@ -275,7 +275,8 @@ he:
     
   txt:
     page:
-      properties: dir=rtl
+      properties:
+        dir: rtl
 
   formtastic:
     post:

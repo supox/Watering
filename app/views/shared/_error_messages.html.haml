@@ -1,0 +1,8 @@
+- if object.errors.any?
+  %div.error_explanation
+    %div.alert.alert-error
+      = t( :form_contains_error )
+      .
+    %ul
+      -object.errors.full_messages.each do |msg|
+        %li * = msg

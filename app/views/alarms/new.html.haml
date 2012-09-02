@@ -1,0 +1,6 @@
+- provide(:title, t(:new_alarm))
+%h1= t(:new_alarm)
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@alarm, url: url_for(action: 'create')) do |f|
+      = render 'fields', f: f

@@ -1,0 +1,9 @@
+= f.semantic_errors :state
+
+= f.input :identifier
+= f.input :port_index, as: :number
+= f.input :sensor_type, as: :enum_select
+
+= f.actions do
+  = f.action :submit, label: true
+  = f.action :cancel, :as => :link, label: :cancel

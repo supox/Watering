@@ -1,0 +1,10 @@
+- provide(:title, @user.name)
+%h1= @user.name
+
+- if @user.sprinklers.any?
+  %h3= t(:sprinklers)
+  %ul.sprinklers
+    = render partial: 'shared/sprinkler', collection: @user.sprinklers
+
+- if current_user.admin? && !current_user?(@user)
+  = link_to t(:delete), @user, method: :delete, data: { confirm: t(:you_sure?) }

@@ -1,0 +1,14 @@
+%h3 = link_to t(:identifier)+" : "+sensor.identifier, [sensor.sprinkler, sensor]
+%p= t(:port)
+  = sensor.port_index
+  
+-if sensor.last_readings.any?
+	%h4 =t(:last_readings) + ":"
+	%table.table.table-condensed.ReadingTable
+		%tr
+		  %th= t :reading_time
+		  %th= t :reading
+		-sensor.last_readings.each do |reading|
+		  %tr
+		    %td= l reading.read_time, format: :short
+		    %td= reading.sensor_value

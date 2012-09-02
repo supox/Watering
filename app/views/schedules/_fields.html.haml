@@ -1,0 +1,84 @@
+= f.semantic_errors :state
+= f.input :title, label: t(:title)
+- start_date = f.object.start_date || Time.now
+= f.input :start_date, label: t(:start_time), :as => :string, :input_html => { :value => I18n.l(start_date) }
+= f.input :end_date,
+			:required => false,
+			:as => :string,
+			:label => t(:end_time).html_safe + link_to_function(" ("+t(:clear).html_safe + ")", '$("#sprinkler_plan_end_date").val("");'),
+			:input_html => { :value => (I18n.l(f.object.end_date) if f.object.end_date)  }
+
+:javascript
+  function updateForm() {
+  	var hasFaded = false;
+  	val = $("\#sprinkler_plan_repeat").val();
+    $("\#sprinkler_plan_repeat option").each(function(value){
+      if( $("\#"+this.value).is(":visible") ) {
+        $("\#"+this.value).fadeOut('normal',function() {
+          $("\#" + val).fadeIn();
+        });
+        hasFaded = true;
+      }
+    });
+    if(!hasFaded)
+      $("\#" + val).fadeIn();
+  }
+  $(document).ready(function() {
+    $("\#sprinkler_plan_repeat").change(function() {
+      updateForm();
+    });
+    var weekly = #{raw @plan.weekly.to_json};
+    for (dayIndex in weekly) {
+      $("\#sprinkler_plan_weekly_" + weekly[dayIndex] ).prop("checked", true);
+    }
+    var startDate = new Date(#{raw (@plan.start_date || Time.now).to_json });
+    var currentDate = new Date();
+    currentDate.setDate(#{ raw @plan.day_of_month.to_json });
+    var beginDate = new Date();
+    beginDate.setDate(1);
+    var endDate = new Date();
+    endDate.setDate(31);
+    $.datepicker.regional[#{ raw I18n.locale.to_json }];
+    $.timepicker.setDefaults($.timepicker.regional[#{ raw I18n.locale.to_json }]);
+    
+    $("\#div_day_of_month").datepicker( {altField: "\#sprinkler_plan_day_of_month", altFormat: "d", minDate:beginDate , maxDate: endDate, defaultDate: currentDate } );
+    
+    // create start time			
+    $("\#sprinkler_plan_start_date").datetimepicker({dateFormat: 'dd/mm/yy', defaultDate: currentDate});
+    $("\#sprinkler_plan_start_date").datepicker("setTime", startDate);
+    
+    // create end time
+    $("\#sprinkler_plan_end_date").datetimepicker({dateFormat: 'dd/mm/yy', defaultDate: currentDate});
+    
+    updateForm();
+    
+    $("input:reset").click(function() {
+      this.form.reset();
+      updateForm();      
+      return false;	// prevent reset button from resetting again
+    });
+  });
+
+= f.input :plan_type, as: :enum_select
+= f.input(:repeat, :required => :true, :include_blank => false, as: :select, collection: {t(:no_repeat) => "Once", t(:daily_repeat) => "Daily", t(:weekly_repeat) => "Weekly", t(:monthly_repeat) => "Monthly"}, label: t(:repeat) )
+%div#Once
+%div#Daily
+%div#Weekly.entry{:style=>"display:none;"}
+  - day_names = I18n.t("date.day_names");
+  - day_values = Date::ABBR_DAYNAMES;
+  - week_days = Hash[day_names.zip(0..6)];
+  = f.input :weekly, as: :check_boxes, collection: week_days, label: t(:weekly_repeat), :hidden_fields => false
+
+%div#Monthly.entry{:style=>"display:none;"}
+  = f.input :day_of_month, as: :hidden
+  %div{:id => "div_day_of_month"}
+= f.actions do
+  = f.action :submit, label: true
+  = f.action :cancel, :as => :link, label: :cancel
+  = f.action :reset
+  -if !f.object.new_record?
+    = link_to t(:delete_plan),
+				sprinkler_schedule_path(f.object.sprinkler_id, f.object.id),
+				method: :delete,
+				data: { confirm: t(:you_sure?) },
+				class: "action link_action btn"

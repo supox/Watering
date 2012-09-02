@@ -1,0 +1,7 @@
+- provide(:title, t(:edit_sensor))
+%h1= t(:edit_sensor)
+%div.row
+	%div.span6.offset3
+		= semantic_form_for(@sensor, url: url_for(action: 'update')) do |f|
+			= render 'fields', f: f
+			

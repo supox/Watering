@@ -1,0 +1,12 @@
+- if sprinkler_plans.any?
+  - calendar_data = sprinkler_plans.collect do |cal|
+    - { 
+    - :name => cal[:title],
+    :date => cal[:date],
+    :url => url_for(:controller => "schedules", :action => "edit", :sprinkler_id => sprinkler_id, :id => cal[:id] )
+    - }
+    
+  %h4= t :next_plans
+  = show_calendar(calendar_data)
+= link_to t(:new_plan), :controller => "schedules", :action => "new", :sprinkler_id => sprinkler_id
+
