@@ -3,6 +3,34 @@
 = f.input :identifier
 = f.input :port_index, as: :number
 = f.input :sensor_type, as: :enum_select
+= f.input :convert_ratio, as: :number
+%div#valf_id_div.entry{:style=>"display:none;"}
+  = f.input(:valf_id, :as => :select, :collection => Hash[f.object.sprinkler.valves.all.map{|b| [b.id,b.id]}.sort], :include_blank => false )
+  = f.input(:no_water_pulse_reaction_delay, as: :number)
+
+:javascript
+  function updateForm() {
+    var val = $("#sensor_sensor_type").val();
+    var show_div = (val == "volume") || (val =="fert_meter");
+    if(show_div)
+      $("#valf_id_div").fadeIn();
+    else
+      $("#valf_id_div").fadeOut('normal');
+  }
+  $(document).ready(function() {
+    $("#sensor_sensor_type").change(function() {
+      updateForm();
+    });
+    
+    updateForm();
+    
+    $("input:reset").click(function() {
+      this.form.reset();
+      updateForm();      
+      return false; // prevent reset button from resetting again
+    });
+  });
+
 
 = f.actions do
   = f.action :submit, label: true
