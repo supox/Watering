@@ -1,0 +1,18 @@
+- provide(:title, @valf.identifier)
+%h1= @valf.identifier
+
+%div.btn-toolbar
+  %div.btn-group
+    %button.btn.btn-primary.dropdown-toggle.entry{"data-toggle"=>"dropdown"}
+      = t(:edit)
+      %span.caret
+    %ul.dropdown-menu
+      %li= link_to t(:edit), edit_sprinkler_valf_path(@sprinkler,@valf)
+      %li
+        =link_to t(:delete),
+        sprinkler_valf_path(@sprinkler,@valf),
+        method: :delete, data: { confirm: t(:you_sure?) }, title: @valf.identifier
+
+%p= @valf.port_index
+%p= @valf.irrigation_mode.text unless @valf.irrigation_mode
+

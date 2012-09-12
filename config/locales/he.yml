@@ -227,6 +227,7 @@ he:
         identifier: מזהה
         port_index: מספר יציאה
         irrigation_mode: סוג השקייה
+        valf_type: סוג מגוף
       sensor:
         identifier: מזהה
         port_index: מספר יציאה
@@ -269,6 +270,9 @@ he:
     irrigation_mode:
       time: זמן
       volume: נפח
+    valf_type:
+      normal: רגיל
+      fertilization: דישון
     main_valve_timing:
       delayed: מושהה
       advanced: מקדים
