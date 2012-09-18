@@ -46,4 +46,7 @@ class Sprinkler < ActiveRecord::Base
     attributes
   end
   
+  def alarms
+    sensors.collect{|s| s.alarms}.flatten
+  end
 end

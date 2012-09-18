@@ -8,7 +8,7 @@ class SprinklersController < ApplicationController
     if c.request.format.json?
       valid_api_key
     else
-      user_can_show_sprinkler unless c.request.format.json?
+      user_can_show_sprinkler
     end
   end
   before_filter :admin_user, only: [:new, :edit, :create, :update, :destroy]

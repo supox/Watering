@@ -1,12 +1,25 @@
 class AlarmsController < ApplicationController
   include SprinklersHelper
+  include ApiHelper
+
   before_filter :valid_sprinkler
   before_filter :valid_sensor
-  before_filter :user_can_show_sprinkler
+  before_filter :user_can_show_sprinkler, except: [:index]
+  before_filter only: [:index] do |c|
+    if c.request.format.json?
+      valid_api_key
+    else
+      user_can_show_sprinkler
+    end
+  end
+
   before_filter :valid_alarm, except: [:new, :create, :index]
 
   def index
-    @alarms = @sensor.alarms.paginate(page: params[:page])
+    respond_to do |format|
+      format.html {@alarms = @sensor.alarms.paginate(page: params[:page])}
+      format.json {@alarms = @sensor.alarms.first(1000)}
+    end
   end
   
   def new

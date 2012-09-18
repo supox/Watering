@@ -3,15 +3,19 @@ class SensorsController < ApplicationController
   include ApiHelper
 
   before_filter :valid_sprinkler
-  before_filter :valid_sensor, except:[ :new, :create ]
-  before_filter :user_can_show_sprinkler, except:[ :create_reading ]
-
-  before_filter(:only => :create_reading) do |controller|
-    if controller.request.format.json?
+  before_filter :valid_sensor, except:[ :new, :create, :index ]
+  before_filter :user_can_show_sprinkler, except:[ :create_reading, :index ]  
+  before_filter only: [:create_reading, :index] do |c|
+    if c.request.format.json?
       valid_api_key
     else
-      # user_can_show_sprinkler
+      user_can_show_sprinkler
     end
+  end
+  
+  def index
+    @sensors = @sprinkler.sensors
+    @alarms = @sprinkler.alarms
   end
 
   # Sensors Reading

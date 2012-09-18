@@ -1,0 +1,26 @@
+- provide(:title, t(:sensors))
+%h1= t(:sensors)
+
+- if @sensors.any?
+  %table.table.table-condensed.ReadingTable
+    %tr
+      %th= t(:identifier)
+      %th= t(:port)
+      - @sensors.each do |sensor|
+        %tr
+          %td= link_to sensor.identifier, [sensor.sprinkler, sensor]
+          %td= sensor.port_index
+          
+
+- if @alarms.any?
+  %table.table.table-condensed.ReadingTable
+    %tr
+      %th= t("activerecord.attributes.alarm.alarm_value")
+      %th= t("activerecord.attributes.alarm.condition_type")
+      %th= t("activerecord.attributes.valf.port_index")
+      - @alarms.each do |alarm|
+        - logger.debug alarm
+        %tr
+          %td= alarm.alarm_value
+          %td= alarm.condition_type.text
+          %td= alarm.sensor.port_index

@@ -1,6 +1,5 @@
 module SprinklersHelper
   def valid_sprinkler
-    logger.info "---------------------- valid_sprinkler ------------- "
     id = params[:sprinkler_id] || params[:id]
     @sprinkler = Sprinkler.find(id) 
     redirect_to(root_path) unless @sprinkler    

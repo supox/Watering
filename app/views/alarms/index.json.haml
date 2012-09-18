@@ -1,0 +1,4 @@
+- port_index = @sensor.port_index
+- json_alarms = @alarms.collect do |alarm|
+  - { :value => alarm[:alarm_value], :condition_type => alarm[:condition_type], :port_index => port_index}
+= raw json_alarms.to_json
