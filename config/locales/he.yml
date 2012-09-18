@@ -223,6 +223,7 @@ he:
         end_date: זמן סיום
         schedule: התזמון
         plan_type: תוכנית השקיה
+        valves: מגופים
       valf:
         identifier: מזהה
         port_index: מספר יציאה
@@ -248,6 +249,8 @@ he:
          refresh_rate_seconds: זמן עדכון בשניות
          main_valve_timing: תזמון המגוף הראשי
          main_valve_delay: השהיית המגוף הראשי
+      valf_plan:
+        amount: כמות השקייה
     errors:
       <<: *errors
 
@@ -288,8 +291,11 @@ he:
         dir: rtl
 
   formtastic:
-    post:
-      title: "כותרת"
+    placeholders:
+      sprinkler_plan:
+        end_date: "ללא"
+      alarm:
+        alarm_title: "השאר ריק ליצירה אוטומטית"
     actions:
       create: "צור %{model}"
       update: "שמור שינויים"
@@ -384,4 +390,6 @@ he:
   could_not_create: לא ניתן לשמור
   for_sensor: עבור חיישן
   edit: ערוך
-   
+  liters: ליטר
+  seconds: שניות
+  minutes: דקות

@@ -16,7 +16,7 @@ class SensorsController < ApplicationController
 
   # Sensors Reading
   def new_reading
-    @sensor_reading = @sensor.sensor_readings.build
+    @sensor_reading = @sensor.sensor_readings.build    
   end
 
   def create_reading

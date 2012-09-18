@@ -4,7 +4,7 @@ module GraphHelper
 	def show_graph( graph_data, graph_title )
 	  if(!@has_put_js)
 	   content_for(:head, javascript_include_tag("http://www.google.com/jsapi"))
-	   # content_for(:head, javascript_include_tag("graphs.js"))
+	   content_for(:head, javascript_include_tag("helpers/graphs.js"))
 	   @has_put_js = true;
 	  end
     render 'shared/graph', data: graph_data, title:graph_title

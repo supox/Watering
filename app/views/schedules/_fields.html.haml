@@ -6,72 +6,47 @@
 			:required => false,
 			:as => :string,
 			:label => t(:end_time).html_safe + link_to_function(" ("+t(:clear).html_safe + ")", '$("#sprinkler_plan_end_date").val("");'),
+			:placeholder => true,
 			:input_html => { :value => (I18n.l(f.object.end_date) if f.object.end_date)  }
 
-:javascript
-  function updateForm() {
-  	var hasFaded = false;
-  	val = $("#sprinkler_plan_repeat").val();
-    $("#sprinkler_plan_repeat option").each(function(value){
-      if( $("#"+this.value).is(":visible") ) {
-        $("#"+this.value).fadeOut('normal',function() {
-          $("#" + val).fadeIn();
-        });
-        hasFaded = true;
-      }
-    });
-    if(!hasFaded)
-      $("#" + val).fadeIn();
-  }
-  $(document).ready(function() {
-    $("#sprinkler_plan_repeat").change(function() {
-      updateForm();
-    });
-    var weekly = #{raw @plan.weekly.to_json};
-    for (dayIndex in weekly) {
-      $("#sprinkler_plan_weekly_" + weekly[dayIndex] ).prop("checked", true);
-    }
-    var startDate = new Date(#{raw (@plan.start_date || Time.now).to_json });
-    var currentDate = new Date();
-    currentDate.setDate(#{ raw @plan.day_of_month.to_json });
-    var beginDate = new Date();
-    beginDate.setDate(1);
-    var endDate = new Date();
-    endDate.setDate(31);
-    $.datepicker.regional[#{ raw I18n.locale.to_json }];
-    $.timepicker.setDefaults($.timepicker.regional[#{ raw I18n.locale.to_json }]);
-    
-    $("#div_day_of_month").datepicker( {altField: "#sprinkler_plan_day_of_month", altFormat: "d", minDate:beginDate , maxDate: endDate, defaultDate: currentDate } );
-    
-    // create start time			
-    $("#sprinkler_plan_start_date").datetimepicker({dateFormat: 'dd/mm/yy', defaultDate: currentDate});
-    $("#sprinkler_plan_start_date").datepicker("setTime", startDate);
-    
-    // create end time
-    $("#sprinkler_plan_end_date").datetimepicker({dateFormat: 'dd/mm/yy', defaultDate: currentDate});
-    
-    updateForm();
-    
-    $("input:reset").click(function() {
-      this.form.reset();
-      updateForm();      
-      return false;	// prevent reset button from resetting again
-    });
-  });
-
 = f.input :plan_type, as: :enum_select
+
+:javascript
+  var valf_ids = #{raw f.object.valf_plans_valves_ids.to_json };
+
+%div.check_boxes.control-group.optional
+  =t(:valves)
+  -# = f.inputs :name=>'ValfPlan #%i', :for => :valf_plans
+  = f.inputs :for => :valf_plans do |vp|
+    - checked = !vp.object.new_record?
+    - irregation_id = "div_sprinkler_plan_valf_ids_#{vp.object.valf.id}"
+    - destroy_id = "sprinkler_plan_valf_destroy_#{vp.object.valf.id}"
+    - checkbox_id = "checkbox_valf_#{vp.object.valf.id}"
+    - style = checked ? '' : 'display:none;'
+    - units = vp.object.valf.irrigation_mode.units
+    = vp.input :valf_id, as: :hidden
+    = vp.input "_destroy", as: :hidden, :value => !checked, :input_html =>{:id=> destroy_id}
+    = vp.input :sprinkler_plan_id, as: :hidden
+    %div.choice.checkbox
+      %label
+        = vp.input :enabled, :label=> vp.object.valf.to_s, :as=> :boolean, :input_html=>{:id=> checkbox_id,
+          :onchange=>"updateValves();"}
+      %div.irregation{:style=>style, :id=>irregation_id}
+        = vp.input :amount, :hint => t(units)
+
 = f.input(:repeat, :required => :true, :include_blank => false, as: :select, collection: {t(:no_repeat) => "Once", t(:daily_repeat) => "Daily", t(:weekly_repeat) => "Weekly", t(:monthly_repeat) => "Monthly"}, label: t(:repeat) )
 %div#Once
 %div#Daily
-%div#Weekly.entry{:style=>"display:none;"}
+%div#Weekly{:style=>"display:none;"}
   - day_names = I18n.t("date.day_names");
   - day_values = Date::ABBR_DAYNAMES;
   - week_days = Hash[day_names.zip(0..6)];
   = f.input :weekly, as: :check_boxes, collection: week_days, label: t(:weekly_repeat), :hidden_fields => false
 
-%div#Monthly.entry{:style=>"display:none;"}
-  = f.input :day_of_month, as: :hidden
+%div#Monthly{:style=>"display:none;"}
+  =f.input :day_of_month, as: :hidden
   %div{:id => "div_day_of_month"}
+    
 = f.actions do
   = f.action :submit, label: true
   = f.action :cancel, :as => :link, label: :cancel
@@ -82,3 +57,12 @@
 				method: :delete,
 				data: { confirm: t(:you_sure?) },
 				class: "action link_action btn"
+
+- content_for(:head, javascript_include_tag("controllers/schedules"))
+
+:javascript
+  var weekly = #{raw @plan.weekly.to_json};
+  var startDate = new Date(#{raw (@plan.start_date || Time.now).to_json });
+  var currentDate = new Date();
+  currentDate.setDate(#{ raw @plan.day_of_month.to_json });
+  var regional = #{raw I18n.locale.to_json };

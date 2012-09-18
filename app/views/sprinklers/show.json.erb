@@ -1,0 +1,4 @@
+<%=
+	timings = @sprinkler.timing(Time.now + 30.days, Time.now)
+	render partial: "sprinkler_plans/sprinkler_timing", object: timings
+%>

@@ -20,9 +20,14 @@ class SchedulesController < ApplicationController
   
   def new
     @plan = @sprinkler.sprinkler_plans.build
+    @sprinkler.valves.each{|v| @plan.valf_plans.build({valf:v, enabled:false})}
   end
   
   def edit
+    valf_plans_valves_ids = @plan.valf_plans_valves_ids
+    @sprinkler.valves.each{|v| @plan.valf_plans.build({valf:v, enabled:false}) unless valf_plans_valves_ids.include?(v.id) }
+    @plan.valf_plans.sort!{ |a,b| a.valf.port_index <=> b.valf.port_index}
+    logger.debug valf_plans_valves_ids
   end
   
   def update
@@ -30,6 +35,7 @@ class SchedulesController < ApplicationController
       flash[:success] = t(:plan_updated)
       redirect_to @sprinkler
     else
+      edit
       render 'edit'
     end    
   end

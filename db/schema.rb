@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911205747) do
+ActiveRecord::Schema.define(:version => 20120914144112) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "sensor_id"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(:version => 20120911205747) do
     t.string   "plan_type"
   end
 
+  create_table "sprinkler_plans_valves", :force => true do |t|
+    t.integer  "sprinkler_plan_id"
+    t.integer  "valf_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "sprinkler_plans_valves", ["sprinkler_plan_id"], :name => "index_sprinkler_plans_valves_on_sprinkler_plan_id"
+
   create_table "sprinklers", :force => true do |t|
     t.string   "identifier"
     t.string   "machine_version"
@@ -94,6 +103,17 @@ ActiveRecord::Schema.define(:version => 20120911205747) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "valf_plans", :force => true do |t|
+    t.integer  "sprinkler_plan_id"
+    t.integer  "valf_id"
+    t.decimal  "amount"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "valf_plans", ["sprinkler_plan_id", "valf_id"], :name => "index_valf_plans_on_sprinkler_plan_id_and_valf_id", :unique => true
+  add_index "valf_plans", ["sprinkler_plan_id"], :name => "index_valf_plans_on_sprinkler_plan_id"
 
   create_table "valves", :force => true do |t|
     t.string   "identifier"

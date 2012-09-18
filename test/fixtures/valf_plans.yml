@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sprinkler_plan_id: 1
+  valf_id: 1
+  amount: 9.99
+
+two:
+  sprinkler_plan_id: 1
+  valf_id: 1
+  amount: 9.99

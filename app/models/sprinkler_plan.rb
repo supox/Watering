@@ -2,16 +2,19 @@ class SprinklerPlan < ActiveRecord::Base
   include IceCube
 
   belongs_to :sprinkler
-  attr_accessible :start_date, :end_date, :title, :repeat, :weekly, :day_of_month, :plan_type
+  
+  attr_accessible :start_date, :end_date, :title, :repeat, :weekly, :day_of_month, :plan_type, :valf_ids, :valf_plans, :valf_plans_attributes
   classy_enum_attr :plan_type, allow_nil: false
-
+  has_many :valf_plans, dependent: :destroy
+  accepts_nested_attributes_for :valf_plans, :allow_destroy => true
+  
   validates :title, presence:true, length: { minimum: 3, maximum: 50 }
   validates :start_date, presence:true
   validate :validate_end_date_before_start_date
   validate :validate_schedule
   
   before_validation :update_schedule
-
+    
   serialize :schedule, Hash
   
   def schedule=(new_schedule)
@@ -32,7 +35,7 @@ class SprinklerPlan < ActiveRecord::Base
     return @_repeat if @_repeat
       
     schedule_yml = YAML::load(schedule.to_yaml)
-    if(schedule_yml == nil or schedule_yml.empty?)
+    if(schedule_yml == nil || schedule_yml.empty? || schedule_yml[:rrules].empty? )
       return "Once"
     end
     
@@ -79,7 +82,11 @@ class SprinklerPlan < ActiveRecord::Base
   def day_of_month=(new_day_of_month)
     @_day_of_month = new_day_of_month
   end
-    
+  
+  def valf_plans_valves_ids
+    valf_plans.collect{|vp| vp.valf.id}
+  end
+  
   protected
   def update_schedule # create a schedule
     begin
