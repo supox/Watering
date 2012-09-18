@@ -42,4 +42,8 @@ class Sprinkler < ActiveRecord::Base
     return timings.compact.flatten.sort {|a,b| a[:offset] <=> b[:offset] }    
   end
   
+  def get_config
+    attributes
+  end
+  
 end

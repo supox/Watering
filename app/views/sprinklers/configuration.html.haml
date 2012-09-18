@@ -1,0 +1,8 @@
+%table
+  %tr
+    %th Attribute
+    %th Value
+  - @configuration.each do |att|
+    %tr  
+      %td= att[0]
+      %td= att[1]

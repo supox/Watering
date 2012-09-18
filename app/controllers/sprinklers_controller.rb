@@ -1,12 +1,16 @@
 class SprinklersController < ApplicationController
   include SprinklersHelper
+  include ApiHelper
   
   before_filter :valid_sprinkler, except: [:new, :index]
-  before_filter :user_can_show_sprinkler, except: [:new, :index, :show]
-  before_filter only: :show do |c|
-    logger.debug "------------------" + c.request.format.to_s
-    user_can_show_sprinkler unless c.request.format.json?
-  end # TODO - add verification for json.
+  before_filter :user_can_show_sprinkler, except: [:new, :index, :show, :configuration]
+  before_filter only: [:show, :configuration] do |c|
+    if c.request.format.json?
+      valid_api_key
+    else
+      user_can_show_sprinkler unless c.request.format.json?
+    end
+  end
   before_filter :admin_user, only: [:new, :edit, :create, :update, :destroy]
   
   def new
@@ -24,6 +28,10 @@ class SprinklersController < ApplicationController
     end
   end
 
+  def configuration   
+    @configuration = @sprinkler.get_config
+    respond_to :html, :json
+  end
 
   def index
   end
