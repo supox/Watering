@@ -5,8 +5,8 @@ class ValvesController < ApplicationController
   before_filter :valid_sprinkler
   before_filter :valid_valf, except: [:new, :create, :index]
 
-  before_filter :user_can_show_sprinkler, :except => [:show, :new_irregation, :create_irregation]
-  before_filter(:only => [:show, :new_irregation, :create_irregation]) do |controller|
+  before_filter :user_can_show_sprinkler, :except => [:show, :new_irrigation, :create_irrigation]
+  before_filter(:only => [:show, :new_irrigation, :create_irrigation]) do |controller|
     if controller.request.format.json?
       valid_api_key
     else
@@ -54,25 +54,25 @@ class ValvesController < ApplicationController
     @valves = @sprinkler.valves
   end
 
-  def new_irregation
-    @valf_irregation = @valf.valf_irregations.build
+  def new_irrigation
+    @valf_irrigation = @valf.valf_irrigations.build
   end
   
-  def create_irregation
+  def create_irrigation
     respond_to do |format|
-      @valf_irregation = @valf.valf_irregations.build(params[:valf_irregation])
-      if @valf_irregation.save
+      @valf_irrigation = @valf.valf_irrigations.build(params[:valf_irrigation])
+      if @valf_irrigation.save
         # Send OK to user        
-        format.json { render "create_irregation_ack" }
+        format.json { render "create_irrigation_ack" }
         format.html do
           flash[:success] = t(:reading_created)
-          redirect_to action: "new_irregation"
+          redirect_to action: "new_irrigation"
         end
       else
-        format.json { render "create_irregation_err", :status => :bad_request }
+        format.json { render "create_irrigation_err", :status => :bad_request }
         format.html do
           flash[:error] = t(:could_not_create_reading)
-          render action: "new_irregation"
+          render action: "new_irrigation"
         end
       end
     end

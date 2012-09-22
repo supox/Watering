@@ -19,7 +19,7 @@
   =t(:valves)
   = f.inputs :for => :valf_plans do |vp|
     - checked = !vp.object.new_record?
-    - irregation_id = "div_sprinkler_plan_valf_ids_#{vp.object.valf.id}"
+    - irrigation_id = "div_sprinkler_plan_valf_ids_#{vp.object.valf.id}"
     - destroy_id = "sprinkler_plan_valf_destroy_#{vp.object.valf.id}"
     - checkbox_id = "checkbox_valf_#{vp.object.valf.id}"
     - style = checked ? '' : 'display:none;'
@@ -31,7 +31,7 @@
       %label
         = vp.input :enabled, :label=> vp.object.valf.to_s, :as=> :boolean, :input_html=>{:id=> checkbox_id,
           :onchange=>"updateValves();"}
-      %div.irregation{:style=>style, :id=>irregation_id}
+      %div.irrigation{:style=>style, :id=>irrigation_id}
         = vp.input :amount, :hint => t(units)
 
 = f.input(:repeat, :required => :true, :include_blank => false, as: :select, collection: {t(:no_repeat) => "Once", t(:daily_repeat) => "Daily", t(:weekly_repeat) => "Weekly", t(:monthly_repeat) => "Monthly"}, label: t(:repeat) )

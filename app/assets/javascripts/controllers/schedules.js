@@ -54,7 +54,7 @@
     var elm = $("#sprinkler_plan_valf_destroy_"+id);
     elm.val(checked);  
   }
-  function updateIrregationDiv(checked, id){
+  function updateIrrigationDiv(checked, id){
     var elm = $("#div_sprinkler_plan_valf_ids_"+id);
     elm.stop(true,true);
     if(checked)
@@ -67,7 +67,7 @@
       var id = valf_ids[id_index];
       var checked = $("#checkbox_valf_" + id ).is(':checked');
       updateDestroyField(!checked, id);
-      updateIrregationDiv(checked, id);
+      updateIrrigationDiv(checked, id);
     }
   }
   

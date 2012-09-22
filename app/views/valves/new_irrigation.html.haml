@@ -1,0 +1,21 @@
+-# Just a debug, will be removed when we'll have a proper machines.
+- provide(:title, t("activerecord.models.valf_irrigation") )
+- content_for(:head, stylesheet_link_tag("helpers/timepicker.css"))
+- content_for(:head, javascript_include_tag("helpers/timepicker.js"))
+%h1= t("activerecord.models.valf_irrigation")
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@valf_irrigation, url: url_for(action: 'create_irrigation')) do |f|
+      = f.semantic_errors :state
+      = hidden_field_tag(:human, :value => "1")
+      = f.input :amount, autofocus: true
+      = f.input :start_time, as: :string
+      = f.input :end_time, as: :string
+      = f.actions do
+        = f.action :submit, label: true
+        = f.action :cancel, :as => :link, url: sprinkler_valf_path(f.object.valf.sprinkler, f.object.valf)
+          
+    :javascript
+      $('#valf_irrigation_start_time').datetimepicker({ dateFormat: 'dd/mm/yy'});
+      $('#valf_irrigation_end_time').datetimepicker({ dateFormat: 'dd/mm/yy'});

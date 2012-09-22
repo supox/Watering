@@ -9,9 +9,9 @@ WateringProject::Application.routes.draw do
     end
     resources :schedules, except: [ :index, :show ]
     resources :valves do
-      member do # Valf irregation
-        get :new_irregation
-        post :create_irregation
+      member do # Valf 2
+        get :new_irrigation
+        post :create_irrigation
       end
     end
     resources :sensors do

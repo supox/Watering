@@ -206,7 +206,7 @@ he:
       valf: מגוף
       sensor: חיישן
       alarm: התראה
-      valf_irregation: קריאת השקייה
+      valf_irrigation: קריאת השקייה
     attributes:
       user:
         password: "הקוד"
@@ -253,7 +253,7 @@ he:
          main_valf: מגוף ראשי
       valf_plan:
         amount: כמות השקייה
-      valf_irregation:
+      valf_irrigation:
         amount: כמות השקייה
         start_time: זמן התחלה
         end_time: זמן סיום

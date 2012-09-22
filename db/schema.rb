@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120922103627) do
+ActiveRecord::Schema.define(:version => 20120922132529) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "sensor_id"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(:version => 20120922103627) do
 
 # Could not dump table "sensors" because of following StandardError
 #   Unknown type 'sensor' for column 'sensor_type'
+
+  create_table "sprinkler_logs", :force => true do |t|
+    t.integer  "sprinkler_id"
+    t.datetime "event_time"
+    t.string   "event_type"
+    t.integer  "port_index"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "sprinkler_logs", ["sprinkler_id"], :name => "index_sprinkler_logs_on_sprinkler_id"
 
   create_table "sprinkler_plans", :force => true do |t|
     t.integer  "sprinkler_id"
@@ -105,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20120922103627) do
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
-  create_table "valf_irregations", :force => true do |t|
+  create_table "valf_irrigations", :force => true do |t|
     t.integer  "valf_id"
     t.datetime "start_time"
     t.datetime "end_time"

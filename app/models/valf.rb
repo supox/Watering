@@ -4,7 +4,7 @@ class Valf < ActiveRecord::Base
   classy_enum_attr :irrigation_mode, :allow_nil => false
   classy_enum_attr :valf_type, :allow_nil => false
   has_many :valf_plans, dependent: :destroy
-  has_many :valf_irregations, dependent: :destroy
+  has_many :valf_irrigations, dependent: :destroy
   
   validates :identifier, presence: true
   validates :port_index, presence: true, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}, :uniqueness => { :scope => :sprinkler_id }
@@ -19,7 +19,7 @@ class Valf < ActiveRecord::Base
     end
   end
   
-  def irregation_amount(from_date = 30.days.ago)
-    valf_irregations.all(:conditions => {:start_time => from_date..Time.now}).inject(0) {|sum,i| sum += i.amount}
+  def irrigation_amount(from_date = 30.days.ago)
+    valf_irrigations.all(:conditions => {:start_time => from_date..Time.now}).inject(0) {|sum,i| sum += i.amount}
   end
 end

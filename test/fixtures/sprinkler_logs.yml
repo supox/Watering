@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sprinkler_id: 1
+  event_time: 2012-09-22 15:45:48
+  event_type: MyString
+  port_index: 1
+
+two:
+  sprinkler_id: 1
+  event_time: 2012-09-22 15:45:48
+  event_type: MyString
+  port_index: 1
