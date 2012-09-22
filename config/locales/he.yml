@@ -206,6 +206,7 @@ he:
       valf: מגוף
       sensor: חיישן
       alarm: התראה
+      valf_irregation: קריאת השקייה
     attributes:
       user:
         password: "הקוד"
@@ -252,6 +253,10 @@ he:
          main_valf: מגוף ראשי
       valf_plan:
         amount: כמות השקייה
+      valf_irregation:
+        amount: כמות השקייה
+        start_time: זמן התחלה
+        end_time: זמן סיום
     errors:
       <<: *errors
 
@@ -259,8 +264,9 @@ he:
     sensor_type:
       temperature: 'טמפרטורה'
       pressure: 'לחץ'
+      differential_pressure: מד לחץ דיפרנציאלי
       humidity: 'לחות'
-      volume: 'נפח'
+      water_meter: 'מד מים'
       fert_meter: מד דישון
     plan_type:
       watering: השקייה
@@ -277,6 +283,7 @@ he:
     valf_type:
       normal: רגיל
       fertilization: דישון
+      main: ראש ראשי
     main_valve_timing:
       delayed: מושהה
       advanced: מקדים
@@ -387,6 +394,7 @@ he:
   all_alarms: כל ההתראות
   edit_alarm: ערוך התראה
   alarm_saved: ההתראה נוצרה
+  alarms: התראות
   changes_saved: השינויים נשמרו
   could_not_create: לא ניתן לשמור
   for_sensor: עבור חיישן
@@ -394,3 +402,4 @@ he:
   liters: ליטר
   seconds: שניות
   minutes: דקות
+  type: סוג

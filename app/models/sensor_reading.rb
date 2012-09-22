@@ -1,4 +1,6 @@
 class SensorReading < ActiveRecord::Base
+  include DateTimeHelper
+
   attr_accessible :sensor_value, :read_time
 
   belongs_to :sensor
@@ -16,14 +18,6 @@ class SensorReading < ActiveRecord::Base
   end
 
   def update_time
-    begin
-      if read_time.is_a?(Integer)
-        self.read_time=Time.at(read_time)
-      elsif(read_time.is_a?(String))
-        self.read_time=Time.parse(read_time)
-      end
-    rescue Exception => e
-      logger.debug "Rescue. ex = " + e.message
-    end
+    self.read_time = to_time(read_time)
   end
 end

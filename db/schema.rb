@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120922085126) do
+ActiveRecord::Schema.define(:version => 20120922103627) do
 
   create_table "alarms", :force => true do |t|
     t.integer  "sensor_id"
@@ -104,6 +104,15 @@ ActiveRecord::Schema.define(:version => 20120922085126) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "valf_irregations", :force => true do |t|
+    t.integer  "valf_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.decimal  "amount"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "valf_plans", :force => true do |t|
     t.integer  "sprinkler_plan_id"

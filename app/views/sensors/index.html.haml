@@ -13,6 +13,7 @@
           
 
 - if @alarms.any?
+  %h3= t(:alarms)
   %table.table.table-condensed.ReadingTable
     %tr
       %th= t("activerecord.attributes.alarm.alarm_value")

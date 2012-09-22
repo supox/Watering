@@ -15,3 +15,9 @@ class ValfType::Fertilization < ValfType
     "F"
   end
 end
+
+class ValfType::Main < ValfType
+  def short
+    "M"
+  end
+end

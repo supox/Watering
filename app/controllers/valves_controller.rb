@@ -3,9 +3,10 @@ class ValvesController < ApplicationController
   include ApiHelper
 
   before_filter :valid_sprinkler
-  before_filter :valid_valve, except: [:new, :create, :index]
+  before_filter :valid_valf, except: [:new, :create, :index]
 
-  before_filter(:only => :show) do |controller|
+  before_filter :user_can_show_sprinkler, :except => [:show, :new_irregation, :create_irregation]
+  before_filter(:only => [:show, :new_irregation, :create_irregation]) do |controller|
     if controller.request.format.json?
       valid_api_key
     else
@@ -52,10 +53,35 @@ class ValvesController < ApplicationController
   def index
     @valves = @sprinkler.valves
   end
+
+  def new_irregation
+    @valf_irregation = @valf.valf_irregations.build
+  end
+  
+  def create_irregation
+    respond_to do |format|
+      @valf_irregation = @valf.valf_irregations.build(params[:valf_irregation])
+      if @valf_irregation.save
+        # Send OK to user        
+        format.json { render "create_irregation_ack" }
+        format.html do
+          flash[:success] = t(:reading_created)
+          redirect_to action: "new_irregation"
+        end
+      else
+        format.json { render "create_irregation_err", :status => :bad_request }
+        format.html do
+          flash[:error] = t(:could_not_create_reading)
+          render action: "new_irregation"
+        end
+      end
+    end
+    
+  end
   
   protected
 
-  def valid_valve
+  def valid_valf
     @valf_id = params[:id]
     if @valf_id
       @valf = @sprinkler.valves.find_by_id @valf_id

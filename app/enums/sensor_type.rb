@@ -10,10 +10,13 @@ end
 class SensorType::Pressure < SensorType
 end
 
+class SensorType::DifferentialPressure < SensorType
+end
+
 class SensorType::Humidity < SensorType
 end
 
-class SensorType::Volume < SensorType
+class SensorType::WaterMeter < SensorType
   def has_valf?
     true
   end
