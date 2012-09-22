@@ -1,6 +1,11 @@
 %li{ :id => sensor.id }
   %span.content
-    - sensor_description = "#{t(:port)} #{sensor.port_index.to_s} - #{sensor.sensor_type.text}".html_safe
+    
+    - begin
+      - sensor_description = "#{t(:port)} #{sensor.port_index.to_s} - #{sensor.sensor_type.text}".html_safe
+    - rescue
+      - sensor_description = "#{t(:port)} #{sensor.port_index.to_s} - #{sensor.sensor_type}".html_safe
+      
     = link_to sensor_description, sprinkler_sensor_path(sensor.sprinkler_id, sensor.id)
   -if current_user.admin?
     %span.content

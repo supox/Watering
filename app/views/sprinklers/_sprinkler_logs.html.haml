@@ -1,0 +1,12 @@
+- if sprinkler_logs.any?
+  %h4= t("activerecord.models.sprinkler_log")
+  %table.table.table-condensed.ReadingTable
+    %tr
+      %th= t("activerecord.attributes.sprinkler_log.event_time")
+      %th= t("activerecord.attributes.sprinkler_log.event_type")
+      %th= t("activerecord.attributes.sprinkler_log.port_index")
+    -sprinkler_logs.each do |log|
+      %tr
+        %td= l log.event_time, format: :short
+        %td= log.event_type.text
+        %td= log.port_index

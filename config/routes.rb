@@ -6,6 +6,9 @@ WateringProject::Application.routes.draw do
   resources :sprinklers do
     member do
       get :configuration
+        get :new_log
+        post :create_log
+      
     end
     resources :schedules, except: [ :index, :show ]
     resources :valves do

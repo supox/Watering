@@ -1,10 +1,10 @@
 class SprinklersController < ApplicationController
   include SprinklersHelper
   include ApiHelper
-  
+
   before_filter :valid_sprinkler, except: [:new, :index]
-  before_filter :user_can_show_sprinkler, except: [:new, :index, :show, :configuration]
-  before_filter only: [:show, :configuration] do |c|
+  before_filter :user_can_show_sprinkler, except: [:new, :index, :show, :configuration, :create_log]
+  before_filter only: [:show, :configuration, :create_log] do |c|
     if c.request.format.json?
       valid_api_key
     else
@@ -12,7 +12,7 @@ class SprinklersController < ApplicationController
     end
   end
   before_filter :admin_user, only: [:new, :edit, :create, :update, :destroy]
-  
+
   def new
     @sprinkler = Sprinkler.new
   end
@@ -28,7 +28,7 @@ class SprinklersController < ApplicationController
     end
   end
 
-  def configuration   
+  def configuration
     @configuration = @sprinkler.get_config
     respond_to :html, :json
   end
@@ -51,10 +51,34 @@ class SprinklersController < ApplicationController
       flash[:error] = t(:could_not_create_sprinkler)
       render 'edit'
     end
-    
+
   end
 
   def destroy
+  end
+
+  def new_log
+    @sprinkler_log = @sprinkler.sprinkler_logs.build
+  end
+
+  def create_log
+    respond_to do |format|
+      @sprinkler_log = @sprinkler.sprinkler_logs.build(params[:sprinkler_log])
+      if @sprinkler_log.save
+        # Send OK to user
+        format.json { render "create_log_ack" }
+        format.html do
+          flash[:success] = t(:reading_created)
+          redirect_to action: "new_log"
+        end
+      else
+        format.json { render "create_log_err", :status => :bad_request }
+        format.html do
+          flash[:error] = t(:could_not_create_reading)
+          render action: "new_log"
+        end
+      end
+    end
   end
 
 end

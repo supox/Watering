@@ -207,6 +207,7 @@ he:
       sensor: חיישן
       alarm: התראה
       valf_irrigation: קריאת השקייה
+      sprinkler_log: לוג בקר
     attributes:
       user:
         password: "הקוד"
@@ -257,6 +258,10 @@ he:
         amount: כמות השקייה
         start_time: זמן התחלה
         end_time: זמן סיום
+      sprinkler_log:
+        event_type: סוג אירוע
+        event_time: זמן האירוע
+        port_index: חיבור
     errors:
       <<: *errors
 
@@ -288,7 +293,11 @@ he:
       delayed: מושהה
       advanced: מקדים
       simultaneous: "בו זמנית"
-     
+    sprinkler_log_type:
+      start_irrigation: תחילת השקייה
+      end_irrigation: סוף השקייה
+      no_communication: אין תקשורת
+
   css:
     right: left
     left: right

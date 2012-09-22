@@ -1,0 +1,21 @@
+-# Just a debug, will be removed when we'll have a proper machines.
+- provide(:title, t("activerecord.models.sprinkler_log") )
+- content_for(:head, stylesheet_link_tag("helpers/timepicker.css"))
+- content_for(:head, javascript_include_tag("helpers/timepicker.js"))
+%h1= t("activerecord.models.sprinkler_log")
+
+%div.row
+  %div.span6.offset3
+    = semantic_form_for(@sprinkler_log, url: url_for(action: 'create_log')) do |f|
+      = f.semantic_errors :state
+      = hidden_field_tag(:human, :value => "1")
+
+      = f.input :event_type, as: :enum_select
+      = f.input :event_time, as: :string
+      = f.input :port_index, as: :select, :collection => f.object.sprinkler.valves.collect{|v| v.port_index}
+      = f.actions do
+        = f.action :submit, label: true
+        = f.action :cancel, :as => :link, url: sprinkler_path(f.object.sprinkler)
+          
+    :javascript
+      $('#sprinkler_log_event_time').datetimepicker({ dateFormat: 'dd/mm/yy'});

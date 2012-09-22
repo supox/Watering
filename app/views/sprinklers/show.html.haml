@@ -10,6 +10,8 @@
       %li= link_to t(:new_sensor), new_sprinkler_sensor_path(@sprinkler)
       %li= link_to t(:new_plan), new_sprinkler_schedule_path(@sprinkler)
 
+= render partial: "sprinkler_logs", object: @sprinkler.last_logs
+
 - if @sprinkler.sensors.any?
   %h3= t(:sensors)
   %ul.sensors

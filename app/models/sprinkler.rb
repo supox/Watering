@@ -64,6 +64,10 @@ class Sprinkler < ActiveRecord::Base
       main_valve_timing * main_valve_timing.sign
   end
   
+  def last_logs(from_date = 3.days.ago)
+    sprinkler_logs.find(:all, :conditions => ["event_time > ? ", from_date])
+  end
+  
   private
   def main_valf_valid
     return unless main_valf

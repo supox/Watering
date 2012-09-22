@@ -25,12 +25,10 @@ class SprinklerLog < ActiveRecord::Base
   end
   
   def valid_port_index
-    if sprinkler.valves.find_by_port_index(port_index)
-      return
-    end
-    if sprinkler.sensors.find_by_port_index(port_index)
-      return
-    end
+    return if (event_type && !event_type.has_port?)
+    return if sprinkler.valves.find_by_port_index(port_index)
+    return if sprinkler.sensors.find_by_port_index(port_index)
+
     errors.add(:port_index, I18n.t("errors.messages.inclusion"))
   end
 end
