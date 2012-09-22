@@ -14,9 +14,9 @@
 :javascript
   var valf_ids = #{raw f.object.valf_plans_valves_ids.to_json };
 
+-# TODO - move to partial.
 %div.check_boxes.control-group.optional
   =t(:valves)
-  -# = f.inputs :name=>'ValfPlan #%i', :for => :valf_plans
   = f.inputs :for => :valf_plans do |vp|
     - checked = !vp.object.new_record?
     - irregation_id = "div_sprinkler_plan_valf_ids_#{vp.object.valf.id}"

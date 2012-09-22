@@ -2,7 +2,7 @@ class Valf < ActiveRecord::Base
   belongs_to :sprinkler
   attr_accessible :identifier, :port_index, :irrigation_mode, :valf_type
   classy_enum_attr :irrigation_mode, :allow_nil => false
-  classy_enum_attr :valf_type, :allow_nul => false
+  classy_enum_attr :valf_type, :allow_nil => false
   has_many :valf_plans, dependent: :destroy
   
   validates :identifier, presence: true

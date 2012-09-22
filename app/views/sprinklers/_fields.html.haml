@@ -3,11 +3,19 @@
 = f.input :identifier
 = f.input :mac_address
 = f.input :machine_version
-= f.input :refresh_rate_seconds, as: :number
+= f.input :refresh_rate_seconds, as: :number, required: true
+= f.input :main_valf, as: :select, collection: f.object.valves
 = f.input :main_valve_timing, as: :enum_select
-= f.input :main_valve_delay
+= f.input :main_valve_delay, as: :number, required: false
 
 = f.actions do
-	= f.action :submit, label: true
-	= f.action :cancel, :as => :link, label: :cancel
+  = f.action :submit, label: true
+  = f.action :cancel, :as => :link, label: :cancel
 
+:javascript
+  $("#sprinkler_main_valve_timing").change(updateDelayField);
+  function updateDelayField(){
+    var disabled = ($("#sprinkler_main_valve_timing").val() == "simultaneous");
+    $("#sprinkler_main_valve_delay").attr('disabled', disabled);
+  }
+  $(document).ready(updateDelayField);

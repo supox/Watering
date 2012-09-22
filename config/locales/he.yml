@@ -249,6 +249,7 @@ he:
          refresh_rate_seconds: זמן עדכון בשניות
          main_valve_timing: תזמון המגוף הראשי
          main_valve_delay: השהיית המגוף הראשי
+         main_valf: מגוף ראשי
       valf_plan:
         amount: כמות השקייה
     errors:

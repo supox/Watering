@@ -6,10 +6,19 @@ class Sprinkler < ActiveRecord::Base
 
   attr_accessible :identifier, :latitude, :longitude,
                   :mac_address, :machine_version, :refresh_rate_seconds,
+                  :main_valf,
                   :main_valve_timing, :main_valve_delay
   classy_enum_attr :main_valve_timing, :allow_nil => false
   
-  # TODO - add verifies
+  validates :refresh_rate_seconds, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates :main_valve_delay, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates :identifier, presence: true, length: { maximum: 50 }
+  VALID_MACADDRESS_REGEX = /^([0-9a-fA-F]{2}[:-]){5}[0-9a-fA-F]{2}$/i  
+  validates :mac_address, length: { minimum:5, maximum: 50 },
+                          format: { with: VALID_MACADDRESS_REGEX }   
+  validates :machine_version, presence: true, length: { maximum: 50 }  
+  validate :main_valf_valid
+  
   
   def plans( to = Time.now+30.days, from = Time.now )
     occurerences = sprinkler_plans.collect do |plan|
@@ -49,4 +58,15 @@ class Sprinkler < ActiveRecord::Base
   def alarms
     sensors.collect{|s| s.alarms}.flatten
   end
+  
+  def main_valf_delay
+      main_valve_timing * main_valve_timing.sign
+  end
+  
+  private
+  def main_valf_valid
+    return unless main_valf
+    errors.add(:main_valf, I18n.t("errors.messages.inclusion")) unless valves.find_by_id(main_valf)
+  end
+  
 end
