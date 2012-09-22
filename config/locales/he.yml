@@ -412,3 +412,9 @@ he:
   seconds: שניות
   minutes: דקות
   type: סוג
+  forgot_password: שכחתי סיסמא
+  reset_code_sent_to: 'איפוס סיסמא נשלח ל %{email}'
+  mail_does_not_exist_in_system: '%{email} אינו קיים במערכת'
+  reset_password: אפס סיסמא
+  click_the_link_to_reset_password: לחץ על הלינק על מנת לאפס את הסיסמא
+  password_has_been_reset_successfully: הסיסמא אופסה בהצלחה

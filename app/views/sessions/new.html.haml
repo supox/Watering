@@ -6,5 +6,8 @@
     = semantic_form_for(:session, url: sessions_path) do |f|
       = f.input :email, label: t(:email)
       = f.password_field :password, label: t(:password)
-      = f.actions :submit, label: t(:sign_in)
-        
+      = f.actions do
+        = f.action :submit, label: t(:sign_in)
+        = link_to t(:forgot_password),
+          forgot_path,
+          class: "action link_action btn"
