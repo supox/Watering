@@ -3,7 +3,7 @@ class ValvesController < ApplicationController
   include ApiHelper
 
   before_filter :valid_sprinkler
-  before_filter :valid_valve, except: [:new, :create]
+  before_filter :valid_valve, except: [:new, :create, :index]
 
   before_filter(:only => :show) do |controller|
     if controller.request.format.json?
@@ -47,6 +47,10 @@ class ValvesController < ApplicationController
     @valf.destroy
     flash[:success] = t(:deleted_success)
     redirect_to @sprinkler
+  end
+  
+  def index
+    @valves = @sprinkler.valves
   end
   
   protected

@@ -1,0 +1,12 @@
+-provide(:title, t(:valves))
+%h1= t(:valves)
+%div.row
+  %div.span6.offset3
+    %table.table.table-condensed.ReadingTable
+      %tr
+        -@valves.each do |valf|
+          %td= link_to valf.port_index, sprinkler_valf_path(valf.sprinkler_id, valf.id) 
+      %tr
+        -@valves.each do |valf|
+          %td= valf.valf_type.short
+  		
