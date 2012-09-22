@@ -8,4 +8,4 @@
       = f.input :email, as: :email, label: t(:email)
       = f.actions do
         = f.action :submit
-        = f.action :cancel, :as => :link, label: :cancel
+        = f.action :cancel, url: signin_path

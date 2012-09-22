@@ -1,3 +1,5 @@
+require "yaml"
+
 class SprinklerPlan < ActiveRecord::Base
   include IceCube
 
@@ -120,7 +122,7 @@ class SprinklerPlan < ActiveRecord::Base
   end
   def validate_end_date_before_start_date
     if end_date && start_date
-      errors.add(:end_date, "End date should be later than start date.") if end_date < start_date
+      errors.add(:end_date, "End date should be later than start date.") if end_date < start_date # TODO - add I18n
     end
   end
   

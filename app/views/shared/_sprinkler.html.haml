@@ -3,11 +3,3 @@
     = link_to t(:sprinkler), sprinkler
     \-
     = sprinkler.machine_version
-
-  -if sprinkler.sensors.any?
-    %h4= t(:sensors)
-    %ul.sensors
-      =render partial: 'shared/sensor', collection: sprinkler.sensors
-      -if sprinkler.valves.any?
-        %h4= t(:valves)
-    = render partial: 'shared/valf', collection: sprinkler.valves

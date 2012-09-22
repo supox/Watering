@@ -1,6 +1,9 @@
 - provide(:title, @user.name)
 %h1= @user.name
 
+= show_menu t(:edit),
+  link_to(t(:edit), edit_user_path(@user))
+
 - if @user.sprinklers.any?
   %h3= t(:sprinklers)
   %ul.sprinklers

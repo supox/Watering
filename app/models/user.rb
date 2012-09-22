@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :phone, :password, :password_confirmation
   
   has_secure_password
   
@@ -8,14 +8,18 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates_length_of :name, in: 4..50, allow_blank: false
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence:   true,
                     format:     { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates_presence_of :password, :on => :create
+  validates_presence_of :password_confirmation, :on => :create
+  validates_length_of :password, in: 6..32, allow_blank: true
+  validates_format_of :phone, 
+    :message => I18n.t("errors.messages.invalid_type"),
+    :with => /^[\(\)0-9\- \+\.]{10,20}$/ 
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64

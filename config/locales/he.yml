@@ -215,6 +215,7 @@ he:
         password_confirmation: "וידוא סיסמא"
         name: "שם"
         email: "דואר אלקטרוני"
+        phone: טלפון
       sensor_reading:
         sensor_value: ערך הקריאה
         read_time: זמן הקריאה
