@@ -11,5 +11,17 @@ module SprinklersHelper
       )
       redirect_to(root_path)
     end
-  end  
+  end
+  
+  def valid_api_key
+    # redirect_to root_path unless params[:api_key] == Rails.configuration.sprinklers_api_key
+  end
+
+  def can_show_sprinkler(format)
+    if(format.json?)
+      valid_api_key
+    else
+      user_can_show_sprinkler
+    end
+  end
 end

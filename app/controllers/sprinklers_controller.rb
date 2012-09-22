@@ -1,15 +1,10 @@
 class SprinklersController < ApplicationController
   include SprinklersHelper
-  include ApiHelper
 
   before_filter :valid_sprinkler, except: [:new, :index]
   before_filter :user_can_show_sprinkler, except: [:new, :index, :show, :configuration, :create_log]
   before_filter only: [:show, :configuration, :create_log] do |c|
-    if c.request.format.json?
-      valid_api_key
-    else
-      user_can_show_sprinkler
-    end
+    can_show_sprinkler(c.request.format)
   end
   before_filter :admin_user, only: [:new, :edit, :create, :update, :destroy]
 

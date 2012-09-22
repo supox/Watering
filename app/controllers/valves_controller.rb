@@ -1,17 +1,12 @@
 class ValvesController < ApplicationController
   include SprinklersHelper
-  include ApiHelper
 
   before_filter :valid_sprinkler
   before_filter :valid_valf, except: [:new, :create, :index]
 
-  before_filter :user_can_show_sprinkler, :except => [:show, :new_irrigation, :create_irrigation]
-  before_filter(:only => [:show, :new_irrigation, :create_irrigation]) do |controller|
-    if controller.request.format.json?
-      valid_api_key
-    else
-      user_can_show_sprinkler
-    end
+  before_filter :user_can_show_sprinkler, :except => [:show, :new_irrigation, :create_irrigation, :index]
+  before_filter(:only => [:show, :new_irrigation, :create_irrigation, :index]) do |controller|
+    can_show_sprinkler(controller.request.format)
   end
 
   def new
