@@ -24,16 +24,6 @@ ActiveRecord::Schema.define(:version => 20120922202922) do
 
   add_index "alarms", ["sensor_id"], :name => "index_alarms_on_sensor_id"
 
-  create_table "output_valves", :force => true do |t|
-    t.string   "type"
-    t.integer  "port_index"
-    t.integer  "sprinkler_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "output_valves", ["sprinkler_id"], :name => "index_output_valves_on_sprinkler_id"
-
   create_table "sensor_readings", :force => true do |t|
     t.integer  "sensor_id"
     t.datetime "created_at",   :null => false
@@ -44,8 +34,19 @@ ActiveRecord::Schema.define(:version => 20120922202922) do
 
   add_index "sensor_readings", ["sensor_id"], :name => "index_sensor_readings_on_sensor_id"
 
-# Could not dump table "sensors" because of following StandardError
-#   Unknown type 'sensor' for column 'sensor_type'
+  create_table "sensors", :force => true do |t|
+    t.string   "identifier"
+    t.integer  "port_index"
+    t.integer  "sprinkler_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "sensor_type"
+    t.decimal  "convert_ratio"
+    t.integer  "valf_id"
+    t.integer  "no_water_pulse_reaction_delay"
+  end
+
+  add_index "sensors", ["sprinkler_id"], :name => "index_sensors_on_sprinkler_id"
 
   create_table "sprinkler_logs", :force => true do |t|
     t.integer  "sprinkler_id"
@@ -68,15 +69,6 @@ ActiveRecord::Schema.define(:version => 20120922202922) do
     t.datetime "end_date"
     t.string   "plan_type"
   end
-
-  create_table "sprinkler_plans_valves", :force => true do |t|
-    t.integer  "sprinkler_plan_id"
-    t.integer  "valf_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  add_index "sprinkler_plans_valves", ["sprinkler_plan_id"], :name => "index_sprinkler_plans_valves_on_sprinkler_plan_id"
 
   create_table "sprinklers", :force => true do |t|
     t.string   "identifier"
