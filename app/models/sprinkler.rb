@@ -37,13 +37,13 @@ class Sprinkler < ActiveRecord::Base
     timings = sprinkler_plans.collect do |plan|
       next if plan.valf_plans.empty?
       valves_offsets = plan.valf_plans.collect do |valf_plan|
-        { offset: 0, port_index: valf_plan.valf.port_index, irrigation_mode: valf_plan.valf.irrigation_mode, amount: valf_plan.amount.to_i }
+        { start_time: 0, valf_id: valf_plan.valf.id, irrigation_mode: valf_plan.valf.irrigation_mode, amount: valf_plan.amount.to_i }
       end
       if plan.schedule
         plan.schedule.occurrences_between( from, [to, (plan.end_date or to)].min ).collect do |p|
           valves_offsets.collect do |o|
             oc = o.clone
-            oc[:offset] = oc[:offset] + p.to_time.to_i
+            oc[:start_time] = oc[:start_time] + p.to_time.to_i
             oc
           end
         end
