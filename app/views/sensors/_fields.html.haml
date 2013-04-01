@@ -11,7 +11,9 @@
 :javascript
   function updateForm() {
     var val = $("#sensor_sensor_type").val();
-    var show_div = (val == "volume") || (val =="fert_meter");
+
+    var show_div_types = #{SensorType.select{|t| t.has_valf?}.to_json}
+    var show_div = show_div_types.indexOf(val) != -1;
     if(show_div)
       $("#valf_id_div").fadeIn();
     else

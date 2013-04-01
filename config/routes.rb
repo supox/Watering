@@ -1,10 +1,12 @@
 WateringProject::Application.routes.draw do
+
   root to: 'static_pages#home'
   match "/about", to: "static_pages#about"
   match "/contact", to: "static_pages#contact"
 
   match '/forgot', to: "users#forgot"
   match '/reset/:reset_code' => "users#reset", :via => [:get, :put], as: :reset 
+  match "/time", to: "time#index"
   
   resources :sprinklers do
     member do

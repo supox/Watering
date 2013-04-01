@@ -1,4 +1,4 @@
-- sensors_json = @sensors.collect { |sensor| {:id=>sensor.id, :port_index=>sensor.port_index } }
+- sensors_json = @sensors.collect { |sensor| {:id=>sensor.id, :port_index=>sensor.port_index, :type=>sensor.sensor_type } }
 - alarms_json = @alarms.collect do |alarm|
   - { :port_index => alarm.sensor.port_index, :alarm_value => alarm.alarm_value, :condition_type => alarm.condition_type }
 - output = {:sensors => sensors_json, :alarms => alarms_json}
