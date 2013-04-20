@@ -21,7 +21,7 @@ class Sprinkler < ActiveRecord::Base
   validate :main_valf_valid
   
   
-  def plans( to = Time.now+30.days, from = Time.now )
+  def plans( to = Time.zone.now+30.days, from = Time.zone.now )
     occurerences = sprinkler_plans.collect do |plan|
       if plan.schedule
         
@@ -33,7 +33,7 @@ class Sprinkler < ActiveRecord::Base
     return occurerences.compact.flatten.sort {|a,b| a[:date] <=> b[:date] }
   end
   
-  def timing(to = Time.now+30.days, from = Time.now )
+  def timing(to = Time.zone.now+30.days, from = Time.zone.now )
     timings = sprinkler_plans.collect do |plan|
       next if plan.valf_plans.empty?
       valves_offsets = plan.valf_plans.collect do |valf_plan|
@@ -64,7 +64,7 @@ class Sprinkler < ActiveRecord::Base
       main_valve_timing * main_valve_timing.sign
   end
   
-  def last_logs(from_date = 3.days.ago)
+  def last_logs(from_date = Time.zone.now-3.days)
     sprinkler_logs.find(:all, :conditions => ["event_time > ? ", from_date])
   end
   

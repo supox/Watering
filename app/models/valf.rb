@@ -19,7 +19,7 @@ class Valf < ActiveRecord::Base
     end
   end
   
-  def irrigation_amount(from_date = 30.days.ago)
-    valf_irrigations.all(:conditions => {:start_time => from_date..Time.now}).inject(0) {|sum,i| sum += i.amount}
+  def irrigation_amount(from_date = Time.zone.today-30.days.ago)
+    valf_irrigations.all(:conditions => {:start_time => from_date..Time.zone.now}).inject(0) {|sum,i| sum += i.amount}
   end
 end

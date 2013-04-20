@@ -1,6 +1,6 @@
 = f.semantic_errors :state
 = f.input :title, label: t(:title)
-- start_date = f.object.start_date || Time.now
+- start_date = f.object.start_date || Time.zone.now
 = f.input :start_date, label: t(:start_time), :as => :string, :input_html => { :value => I18n.l(start_date) }
 = f.input :end_date,
 			:required => false,
@@ -62,7 +62,7 @@
 
 :javascript
   var weekly = #{raw @plan.weekly.to_json};
-  var startDate = new Date(#{raw (@plan.start_date || Time.now).to_json });
+  var startDate = new Date(#{raw (@plan.start_date || Time.zone.now).to_json });
   var currentDate = new Date();
   currentDate.setDate(#{ raw @plan.day_of_month.to_json });
   var regional = #{raw I18n.locale.to_json };

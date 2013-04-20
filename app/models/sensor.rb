@@ -17,7 +17,7 @@ class Sensor < ActiveRecord::Base
 
   has_many :sensor_readings, dependent: :destroy
 
-  def last_readings(events_time = 3.days.ago)
+  def last_readings(events_time = Time.zone.now-3.days)
    self.sensor_readings.all(limit:5, :conditions => ["read_time >= ?", events_time])
   end
   

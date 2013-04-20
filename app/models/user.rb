@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   # Generates a new random token for reset password
   def generate_reset_password_token!
     characters = ('a'..'z').to_a + ('A'..'Z').to_a 
-    self.reset_password_sent_at = Time.now.utc
+    self.reset_password_sent_at = Time.zone.now.utc
     self.reset_password_token = (1..12).map{characters.sample}.join # Generate a 12-length random string
     save(:validate => false)
   end
