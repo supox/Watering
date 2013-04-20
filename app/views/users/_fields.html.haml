@@ -3,9 +3,9 @@
 = f.input :name
 = f.input :email, as: :email
 = f.input :phone, as: :phone
-= f.input :password, as: :password, label: t(:password)
+= f.input :time_zone, :as => :time_zone, default: "Jerusalem"
+= f.input :password, as: :password
 = f.input :password_confirmation, as: :password
-
 = f.actions do
 	= f.action :submit
 	= f.action :cancel, :as => :link, label: :cancel

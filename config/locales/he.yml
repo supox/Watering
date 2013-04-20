@@ -210,11 +210,12 @@ he:
       sprinkler_log: לוג בקר
     attributes:
       user:
-        password: "הקוד"
-        password_digest: "הקוד"
+        password: "סיסמא"
+        password_digest: "סיסמא"
         password_confirmation: "וידוא סיסמא"
         name: "שם"
         email: "דואר אלקטרוני"
+        time_zone: אזור זמן
         phone: טלפון
       sensor_reading:
         sensor_value: ערך הקריאה
