@@ -9,6 +9,7 @@ class SensorsController < ApplicationController
   end
   
   def index
+    
     @sensors = @sprinkler.sensors
     @alarms = @sprinkler.alarms
   end
