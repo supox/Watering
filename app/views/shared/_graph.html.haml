@@ -1,11 +1,3 @@
-:javascript
-  var graphRows = #{raw data.to_json};
-  var graph_y_title = #{raw title.to_json};
-
-- graph_id = "chart_div_#{title}"
-:javascript
-  google.load('visualization', '1', {'packages':['annotatedtimeline']});
-  google.setOnLoadCallback(function() {drawChart("#{graph_id}")});
-
-%div{:id => graph_id, :class=>"graph_div" }
-
+%div{:style=>"width:100%;min-width:400px;"}
+  %div{:style=>"direction:ltr;"}
+    = high_chart("my_id4", @chart)
