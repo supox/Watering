@@ -21,16 +21,13 @@ class SensorsController < ApplicationController
 
   def create_reading
     respond_to do |format|
-      @sensor_reading = @sensor.sensor_readings.build(params[:sensor_reading])
-      if @sensor_reading.save
-        
-        # Check all alarms if need to notify by mail 
-        @sensor.alarms.each do |alarm|
-          if(alarm.will_alarm?(@sensor_reading.sensor_value))
-            AlarmMailer.alarm_email(alarm).deliver
-          end
-        end
+      if(not params[:sensor_readings].nil?)
+        save_ok = params[:sensor_readings].all? {|sensor_reading| save_reading(sensor_reading)}
+      else
+        save_ok = save_reading(params[:sensor_reading])
+      end
 
+      if save_ok        
         # Send OK to user        
         format.json { render "sensor_reading_ack" }
         format.html do
@@ -108,5 +105,19 @@ class SensorsController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+  
+  def save_reading(sensor_reading_parameters)
+    sensor_reading = @sensor.sensor_readings.build(sensor_reading_parameters)
+    save_ok = sensor_reading.save
+    return unless save_ok
+    # Check all alarms if need to notify by mail 
+    @sensor.alarms.each do |alarm|
+      if(alarm.will_alarm?(sensor_reading.sensor_value))
+        AlarmMailer.alarm_email(alarm).deliver
+      end
+    end
+    
+    save_ok
   end
 end
